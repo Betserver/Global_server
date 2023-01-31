@@ -1185,6 +1185,7 @@ function MainProgram(){
       if(is_load_username){
         //Load username from server complete
         var is_login = LoginProcess();
+
         if(!is_login){
           alert("Login failed");
         }
@@ -1563,13 +1564,17 @@ function LoginProcess(){
         LoguotProcess();
         field_object = MF_BetGetFieldLogin();
       }
+
       MF_LoginKey(global_username, psw_current, field_object);
+
     }else{
       //login current matcing complete
       //alert("login current");
     }
 
   }//End loop total psw
+
+  is_login = MF_BetLogin_CheckUser();
 
   return is_login;
 
