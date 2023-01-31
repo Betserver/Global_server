@@ -1,0 +1,1 @@
+alert("!!! [GITHUB] Global server four "c" is no code");
