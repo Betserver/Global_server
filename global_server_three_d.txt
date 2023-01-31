@@ -3375,7 +3375,7 @@ function MF_LoginKey(par_username_object, par_psw, par_field_object){
   MF_BetKey_Test(code_macro_pass_click, code_macro_pass_input, password);
 
   var code = "'Click Login button'";
-  code += "\n" + "TAG POS=1 TYPE=BUTTON  ATTR=TYPE:submit&&CLASS:btn<SP>btn-rounded<SP>btn-lg<SP>btn-primary<SP>w-100";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=TYPE:submit&&CLASS:btn<SP>btn-rounded<SP>btn-lg<SP>btn-primary<SP>w-100";
   ImacroRun(code);
   ImacroWaitTime(5);
 
