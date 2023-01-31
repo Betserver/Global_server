@@ -1,1 +1,1 @@
-alert("Global server one c is no code");
+alert("!!! [GITHUP] Global server one "c" is no code");
