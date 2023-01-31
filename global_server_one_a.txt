@@ -1,1 +1,1 @@
-alert("!!! [GITHUB] Global server one "a" is not code");
+alert("!!! [GITHUB] Global server one 'a' is not code");
