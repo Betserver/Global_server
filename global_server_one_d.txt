@@ -1,0 +1,1 @@
+alert("Global server one d is no code");
