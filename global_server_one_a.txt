@@ -1,1 +1,1 @@
-alert("XXX");
+alert("Global server one a is not code");
