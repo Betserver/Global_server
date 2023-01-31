@@ -1,83 +1,4 @@
 
-/**
-var a = [1,2,3,4,5];
-var global_status_ranking = "";
-FindMyRankWinner("https://chudjenbet.com/member/lotto/2077306", "doxxx31", a);
-alert(global_status_ranking);
-**/
-function MF_BetGetRankingWinnerHeader(){
-
-  var log = "";
-
-  var col_winner_length = window.document.getElementsByClassName("result-item result-item-reward").length;
-
-  if(col_winner_length > 0){
-
-    for(var index = 0; index < col_winner_length; index++){
-
-      //Ranking title
-      var col_title_length = window.document.getElementsByClassName("result-item result-item-reward")[index]
-      .getElementsByClassName("title").length;
-      var is_have_title = (col_title_length > 0);
-
-      if(is_have_title){
-        var title = window.document.getElementsByClassName("result-item result-item-reward")[index].getElementsByClassName("title")[0].innerText;
-        title = CutEmpty(title);
-        title = ImacroSTR(title);
-        log += "|!" + title;
-      }//End title
-
-      //Ranking name
-      var col_title_length = window.document.getElementsByClassName("result-item result-item-reward")[index]
-      .getElementsByClassName("label").length;
-      var is_have_title = (col_title_length > 0);
-
-      if(is_have_title){
-        var name = window.document.getElementsByClassName("result-item result-item-reward")[index].getElementsByClassName("label")[0].innerText;
-        name = CutEmpty(name);
-        name = ImacroSTR(name);
-        log += "|!" + name;
-      }//End title
-
-    }//End loop
-
-  }//End total ranking winner reward
-  return log;
-}
-
-function MF_BetRemoveBody(){
-  window.document.querySelector('body').className = "";
-}
-
-
-
-function MF_BetKey_Test(par_macro_field_click, par_macro_field_input, par_macro_field_data){
-
-
-
-  var code = "'click field login'";
-  code += "\n" + par_macro_field_click;
-  ImacroRun(code);
-  ImacroWaitTime(3)
-
-
-  for(var index_key = 0; index_key < par_macro_field_data.length; index_key++){
-
-    var char_current = par_macro_field_data[index_key];
-
-    var code = "'input field login'";
-    code += "\n" + par_macro_field_input + char_current;
-    ImacroRun(code);
-
-  }//End loop key username
-
-}
-
-
-
-
-
-
 /***************************************/
 //Dev setting
 var global_number_of_page_find_rank_array = [];//switch room //1,2,3,4,5,6
@@ -3374,6 +3295,8 @@ function MF_LoginKey(par_username_object, par_psw, par_field_object){
   MF_BetKey_Test(code_macro_user_click, code_macro_user_input, username);
   MF_BetKey_Test(code_macro_pass_click, code_macro_pass_input, password);
 
+  ImacroWaitTime(3);
+
   var code = "'Click Login button'";
   code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=TYPE:submit&&CLASS:btn<SP>btn-rounded<SP>btn-lg<SP>btn-primary<SP>w-100";
   ImacroRun(code);
@@ -4607,4 +4530,71 @@ function getReduceTimeMS(par_cmd_shoot_object, local_shoot_last_date_time, par_u
    return !isNaN(value) &&
           parseInt(Number(value)) == value &&
           !isNaN(parseInt(value, 10));
+ }
+
+
+ function MF_BetGetRankingWinnerHeader(){
+
+   var log = "";
+
+   var col_winner_length = window.document.getElementsByClassName("result-item result-item-reward").length;
+
+   if(col_winner_length > 0){
+
+     for(var index = 0; index < col_winner_length; index++){
+
+       //Ranking title
+       var col_title_length = window.document.getElementsByClassName("result-item result-item-reward")[index]
+       .getElementsByClassName("title").length;
+       var is_have_title = (col_title_length > 0);
+
+       if(is_have_title){
+         var title = window.document.getElementsByClassName("result-item result-item-reward")[index].getElementsByClassName("title")[0].innerText;
+         title = CutEmpty(title);
+         title = ImacroSTR(title);
+         log += "|!" + title;
+       }//End title
+
+       //Ranking name
+       var col_title_length = window.document.getElementsByClassName("result-item result-item-reward")[index]
+       .getElementsByClassName("label").length;
+       var is_have_title = (col_title_length > 0);
+
+       if(is_have_title){
+         var name = window.document.getElementsByClassName("result-item result-item-reward")[index].getElementsByClassName("label")[0].innerText;
+         name = CutEmpty(name);
+         name = ImacroSTR(name);
+         log += "|!" + name;
+       }//End title
+
+     }//End loop
+
+   }//End total ranking winner reward
+   return log;
+ }
+
+ function MF_BetRemoveBody(){
+   window.document.querySelector('body').className = "";
+ }
+
+ function MF_BetKey_Test(par_macro_field_click, par_macro_field_input, par_macro_field_data){
+
+
+
+   var code = "'click field login'";
+   code += "\n" + par_macro_field_click;
+   ImacroRun(code);
+   ImacroWaitTime(3)
+
+
+   for(var index_key = 0; index_key < par_macro_field_data.length; index_key++){
+
+     var char_current = par_macro_field_data[index_key];
+
+     var code = "'input field login'";
+     code += "\n" + par_macro_field_input + char_current;
+     ImacroRun(code);
+
+   }//End loop key username
+
  }
