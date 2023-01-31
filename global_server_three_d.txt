@@ -3373,6 +3373,8 @@ function MF_LoginKey(par_username_object, par_psw, par_field_object){
 
   MF_BetKey_Test(code_macro_user_click, code_macro_user_input, username);
   MF_BetKey_Test(code_macro_pass_click, code_macro_pass_input, password);
+  
+  ImacroWaitTime(3);
 
   var code = "'Click Login button'";
   code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=TYPE:submit&&CLASS:btn<SP>btn-rounded<SP>btn-lg<SP>btn-primary<SP>w-100";
