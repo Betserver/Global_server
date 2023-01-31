@@ -1,1 +1,4605 @@
-alert("!!! [GITHUB] Global server three 'c' is no code");
+
+/**
+var a = [1,2,3,4,5];
+var global_status_ranking = "";
+FindMyRankWinner("https://chudjenbet.com/member/lotto/2077306", "doxxx31", a);
+alert(global_status_ranking);
+**/
+function MF_BetGetRankingWinnerHeader(){
+
+  var log = "";
+
+  var col_winner_length = window.document.getElementsByClassName("result-item result-item-reward").length;
+
+  if(col_winner_length > 0){
+
+    for(var index = 0; index < col_winner_length; index++){
+
+      //Ranking title
+      var col_title_length = window.document.getElementsByClassName("result-item result-item-reward")[index]
+      .getElementsByClassName("title").length;
+      var is_have_title = (col_title_length > 0);
+
+      if(is_have_title){
+        var title = window.document.getElementsByClassName("result-item result-item-reward")[index].getElementsByClassName("title")[0].innerText;
+        title = CutEmpty(title);
+        title = ImacroSTR(title);
+        log += "|!" + title;
+      }//End title
+
+      //Ranking name
+      var col_title_length = window.document.getElementsByClassName("result-item result-item-reward")[index]
+      .getElementsByClassName("label").length;
+      var is_have_title = (col_title_length > 0);
+
+      if(is_have_title){
+        var name = window.document.getElementsByClassName("result-item result-item-reward")[index].getElementsByClassName("label")[0].innerText;
+        name = CutEmpty(name);
+        name = ImacroSTR(name);
+        log += "|!" + name;
+      }//End title
+
+    }//End loop
+
+  }//End total ranking winner reward
+  return log;
+}
+
+function MF_BetRemoveBody(){
+  window.document.querySelector('body').className = "";
+}
+
+
+
+function MF_BetKey_Test(par_macro_field_click, par_macro_field_input, par_macro_field_data){
+
+
+
+  var code = "'click field login'";
+  code += "\n" + par_macro_field_click;
+  ImacroRun(code);
+  ImacroWaitTime(3)
+
+
+  for(var index_key = 0; index_key < par_macro_field_data.length; index_key++){
+
+    var char_current = par_macro_field_data[index_key];
+
+    var code = "'input field login'";
+    code += "\n" + par_macro_field_input + char_current;
+    ImacroRun(code);
+
+  }//End loop key username
+
+}
+
+
+
+
+
+
+/***************************************/
+//Dev setting
+var global_number_of_page_find_rank_array = [];//switch room //1,2,3,4,5,6
+
+//Program config
+const global_browser_id = "browser_3";
+const global_web_bet_name = "Chudjenbet";
+
+//Sever config
+const dev_set_direct_server_name = "server_three";
+const dev_set_hostname = "localhost";
+const dev_set_server_url_directory = "global_server";
+
+//Bet config
+var global_fix_seconds_remaning_round_card = 100;//seconds for play
+
+var global_fix_distance_friend_ship_sec = null;
+var global_fix_distance_trs_buy_sec = null;
+var global_time_round_shoot_of_limit_round_transaction_seconds = null;//+seconds
+var global_time_round_left_of_limit_round_transaction_seconds = null;//+seconds
+
+var global_button_shoot_distance_seconds = 15;//distance of button shoot
+
+var global_select_card_complete_play_index = 1;//index card complete select play
+var global_bet_url_for_play_room = "";//url main bet room
+const username_symbol_censor = "*";
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+//Varible server fixible
+// mode shoot reduce
+const sev_fix_mode_reduce_disable = 1;
+const sev_fix_mode_reduce_plus_and_minus = 2;
+const sev_fix_mode_reduce_plus = 3;
+const sev_fix_mode_reduce_minus = 4;
+//Property
+const sev_fix_mode_enable = 1;
+const sev_fix_mode_disable = 0;
+//Transaction mode
+const sev_fix_trs_mode_pull = 1;
+const sev_fix_trs_mode_individual = 2;
+const sev_fix_trs_mode_calender = 3;
+/***************************************/
+//Server status
+
+const GROUP_CREDIT_BEFORE_TRS = "before_transaction";
+const GROUP_CREDIT_AFTER_TRS = "after_transaction";
+
+const EVENT_GLOBAL_FAIL = "global_fail";
+
+const EVENT_BROWSER_DISABLE = "browser_disable";
+const EVENT_SERVER_TIME_STOP_DISABLE = "server_time_stop_fail";
+const EVENT_USERNAME_NOT_FOUND = "username_not_found";
+const EVENT_PASSWORD_NOT_FOUND = "psw_not_found";
+const EVENT_ROUND_SELECT_FAIL = "round_select_fail";
+const EVENT_SHOOT_NOT_FOUND = "time_shoot_not_found";
+const EVENT_TRANSACTION_FRIEND_NOT_FOUND = "trs_friend_not_found";
+const EVENT_TRANSACTION_MODE_NOT_FOUND = "trs_mode_not_found";
+const EVENT_TRANSACTION_NUMBER_MATCHING_FAIL = "trs_number_matching_fail";
+const EVENT_TRANSACTION_PRICE_MATCHING_FAIL = "trs_price_matching_fail";
+const EVENT_TRANSACTION_TIME_BUY_FAIL = "trs_time_buy_fail";
+const EVENT_TRANSACTION_LIST_NOT_FOUND = "trs_list_not_found";
+
+const EVENT_TRANSACTION_NUMBER_NOT_FOUND = "trs_num_not_found";
+
+const EVENT_TRANSACTION_OPTION_UP_NOT_FOUND = "trs_opt_two_up_nf";
+const EVENT_TRANSACTION_OPTION_DOWN_NOT_FOUND = "trs_opt_two_down_nf";
+const EVENT_TRANSACTION_OPTION_REVERS_NOT_FOUND = "trs_opt_two_revers_nf";
+
+const EVENT_TRANSACTION_ROOT_NUMBER_NOT_FOUND = "trs_num_root_not_found";
+
+
+
+
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+var url_server = "http://" + dev_set_hostname + "/" + dev_set_server_url_directory + "/" + dev_set_direct_server_name;
+var delete_trs = url_server + "/sent_command_transaction/sql_delete_transaction.php";
+
+var url_sent_credit = url_server + "/sent_program/sent_credit.php";
+var url_sent_login = url_server + "/sent_program/sent_login.php";
+var url_sent_register_round = url_server + "/sent_program/sent_register_round.php";
+var url_sent_register_transaction = url_server + "/sent_program/sent_register_transaction.php";
+var url_sent_rank = url_server + "/sent_program/sent_rank.php";
+var url_sent_event = url_server + "/sent_program/sent_event.php";
+
+
+var url_friend_ship = url_server + "/information/load_friend_ship_transaction.php";
+
+var url_bet_check_user = "https://thailotto.com/member/account";
+var url_bet_login = "https://chudjenbet.com/login";
+var url_bet_trs_list = "https://chudjenbet.com/member/stake";
+
+
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+class CMDPlayProgram{
+  constructor(){
+    var cmd_play_program_id = null;
+    var cmd_play_program_group_id = null;
+  }
+  /******************************/
+  setCMDPlayProgramID(parameter){
+    this.cmd_play_program_id = parameter;
+  }
+  getCMDPlayProgramID(parameter){
+    return this.cmd_play_program_id;
+  }
+  /******************************/
+  setCMDPlayProgramGroupID(parameter){
+    this.cmd_play_program_group_id = parameter;
+  }
+  getCMDPlayProgramGroupID(parameter){
+    return this.cmd_play_program_group_id;
+  }
+  /******************************/
+  IsPlayProgram(){
+    var is_play = false;
+    if(this.cmd_play_program_group_id == 1){
+      is_play = true;
+    }
+
+    return is_play;
+  }
+}
+class CMDPlayRoom{
+  constructor(){
+    var cmd_room_id = null;
+    var cmd_room_group_id = null;
+    var cmd_room_config_last_minutes_shoot = null;
+    var cmd_room_config_time_round_left_second = null;
+    var cmd_room_config_log_round_friend_ship_sec = null;
+    var cmd_room_config_log_round_trs_buy_sec = null;
+    var cmd_room_config_page_save_ranking = null;
+    var cmd_room_config_ranking_winner = null;
+    var cmd_room_config_log_url = null;
+
+  }
+  /************************/
+  setCMDGroupRoomLastTrsBuyTime(par){
+    this.cmd_room_config_log_round_trs_buy_sec = par;
+  }
+  getCMDGroupRoomLastTrsBuyTime(){
+    return this.cmd_room_config_log_round_trs_buy_sec;
+  }
+  /************************/
+  setCMDGroupRoomLastFriendShipTime(par){
+    this.cmd_room_config_log_round_friend_ship_sec = par;
+  }
+  getCMDGroupRoomLastFriendShipTime(){
+    return this.cmd_room_config_log_round_friend_ship_sec;
+  }
+  /************************/
+  setCMDRoomID(par){
+    this.cmd_room_id = par;
+  }
+  getCMDRoomID(){
+    return this.cmd_room_id;
+  }
+  /************************/
+  setCMDGroupRoomID(par){
+    this.cmd_room_group_id = par;
+  }
+  getCMDGroupRoomID(){
+    return this.cmd_room_group_id;
+  }
+  /************************/
+  setCMDGroupRoomLastShootTime(par){
+    this.cmd_room_config_last_minutes_shoot = par;
+  }
+  getCMDGroupRoomLastShootTime(){
+    return this.cmd_room_config_last_minutes_shoot;
+  }
+  /************************/
+  setCMDGroupRoomLastRoundTime(par){
+    this.cmd_room_config_time_round_left_second = par;
+  }
+  getCMDGroupRoomLastRoundTime(){
+    return this.cmd_room_config_time_round_left_second;
+  }
+  /************************/
+  setCMDGroupRoomPageSaveRanking(par){
+    this.cmd_room_config_page_save_ranking = par;
+  }
+  getCMDGroupRoomPageSaveRanking(){
+    return this.cmd_room_config_page_save_ranking;
+  }
+  /************************/
+  setCMDGroupRoomRankingWinner(par){
+    this.cmd_room_config_ranking_winner = par;
+  }
+  getCMDGroupRoomRankingWinner(){
+    return this.cmd_room_config_ranking_winner;
+  }
+  /************************/
+  setCMDGroupRoomURL(par){
+    this.cmd_room_config_log_url = par;
+  }
+  getCMDGroupRoomURL(){
+    return this.cmd_room_config_log_url;
+  }
+  /************************/
+
+}
+class SevCmdRandomShoot{
+  constructor(){
+    var id = null;
+    var group_id = null;
+    var time_ms = null;
+  }
+  /************************/
+  setSevCmdRandomShootID(par){
+    this.id = par;
+  }
+  getSevCmdRandomShootID(){
+    return this.id;
+  }
+  /************************/
+  setCMDGroupRandomShootID(par){
+    this.group_id = par;
+  }
+  getCMDGroupRandomShootID(){
+    return this.group_id;
+  }
+  /************************/
+  setSevCmdRandomShootTimeMS(par){
+    this.time_ms = par;
+  }
+  getSevCmdRandomShootTimeMS(){
+    return this.time_ms;
+  }
+  /************************/
+}
+class Time{
+  constructor(){
+    var hh = null;
+    var mm = null;
+    var ss = null;
+    var ms = null;
+  }
+  /************************/
+  setHH(par){
+    this.hh = par;
+  }
+  getHH(){
+    return this.hh;
+  }
+  /************************/
+  setMM(par){
+    this.mm = par;
+  }
+  getMM(){
+    return this.mm;
+  }
+  /************************/
+  setSS(par){
+    this.ss = par;
+  }
+  getSS(){
+    return this.ss;
+  }
+  /************************/
+  setMS(par){
+    this.ms = par;
+  }
+  getMS(){
+    return this.ms;
+  }
+
+}
+class SevCMDShoot{
+  constructor(){
+    var cmd_shoot_mode_id = null;
+    var mode_public_id = null;
+    var mode_private_id = null;
+    var cmd_shoot_mode_group_shoot_id = null;
+    var time_one = new Time();
+    var time_two = new Time();
+    var time_three = new Time();
+    var reduce_group = null;
+    var reduce_time_ms = null;
+  }
+  /************************/
+  setSevCMDShootModeID(par){
+    this.cmd_shoot_mode_id = par;
+  }
+  getSevCMDShootModeID(){
+    return this.cmd_shoot_mode_id;
+  }
+  /************************/
+  setCMDPublicID(par){
+    this.mode_public_id = par;
+  }
+  getCMDPublicID(){
+    return this.mode_public_id;
+  }
+  /************************/
+  setCMDPrivateID(par){
+    this.mode_private_id = par;
+  }
+  getCMDPrivateID(){
+    return this.mode_private_id;
+  }
+  /************************/
+  setCMDReduceGroupID(par){
+    this.reduce_group = par;
+  }
+  getCMDReduceGroupID(){
+    return this.reduce_group;
+  }
+  /************************/
+  setCMDReduceTime(par){
+    this.reduce_time_ms = par;
+  }
+  getCMDReduceTime(){
+    return this.reduce_time_ms;
+  }
+  /************************/
+  setTimeOne(par){
+    this.time_one = par;
+  }
+  getTimeOne(){
+    return this.time_one;
+  }
+  /************************/
+  setTimeTwo(par){
+    this.time_two = par;
+  }
+  getTimeTwo(){
+    return this.time_two;
+  }
+  /************************/
+  setTimeThree(par){
+    this.time_three = par;
+  }
+  getTimeThree(){
+    return this.time_three;
+  }
+  /************************/
+}
+class SevCmdUsername{
+  constructor(){
+    var cmd_play_user_pattern_id = null;
+    var cmd_play_user_pattern_group_id = null;
+    var cmd_friendship_id = null;
+    var cmd_friendship_pro_id = null;
+    var user_browser_id = null;
+    var user_id = null;
+    var user_name = null;
+    var user_friend_browser_id = null;
+    var user_friend_id = null;
+    var user_friend_name = null;
+  }
+  /************************/
+  setPlayPatternID(par){
+    this.cmd_play_user_pattern_id = par;
+  }
+  getPlayPatternID(){
+    return this.cmd_play_user_pattern_id;
+  }
+  /************************/
+  setPlayPatternGroupID(par){
+    this.cmd_play_user_pattern_group_id = par;
+  }
+  getPlayPatternGroupID(){
+    return this.cmd_play_user_pattern_group_id;
+  }
+  /************************/
+  setFriendshipID(par){
+    this.cmd_friendship_id = par;
+  }
+  getFriendshipID(){
+    return this.cmd_friendship_id;
+  }
+  /************************/
+  setFriendshipGroupID(par){
+    this.cmd_friendship_pro_id = par;
+  }
+  getFriendshipGroupID(){
+    return this.cmd_friendship_pro_id;
+  }
+  /************************/
+  setUserBrowserID(par){
+    this.user_browser_id = par;
+  }
+  getUserBrowserID(){
+    return this.user_browser_id;
+  }
+  /************************/
+  setUserID(par){
+    this.user_id = par;
+  }
+  getUserID(){
+    return this.user_id;
+  }
+  /************************/
+  setUserName(par){
+    this.user_name = par;
+  }
+  getUserName(){
+    return this.user_name;
+  }
+  /************************/
+  setFriendBrowserID(par){
+    this.user_friend_browser_id = par;
+  }
+  getFriendBrowserID(){
+    return this.user_friend_browser_id;
+  }
+  /************************/
+  setFriendUserID(par){
+    this.user_friend_id = par;
+  }
+  getFriendUserID(){
+    return this.user_friend_id;
+  }
+  /************************/
+  setFriendUserName(par){
+    this.user_friend_name = par;
+  }
+  getFriendUserName(){
+    return this.user_friend_name;
+  }
+}
+class SevCmdTransaction{
+  constructor(){
+    var cmd_trs_enable_id = null;
+    var cmd_trs_enable_pro_id = null;
+
+    var cmd_trs_mode_pull_rcp_id = null;
+    var cmd_trs_mode_ind_rcp_id = null;
+    var cmd_trs_mode_cld_rcp_id = null;
+
+    var cmd_trs_mode_id = null;
+    var cmd_trs_group_mode_id = null;
+
+    var trs_set = null;
+    var trs_price = null;
+    var trs_number = null;
+
+    var trs_option_up = null;
+    var trs_option_down = null;
+    var trs_option_revers = null;
+
+    var trs_option_up_name = null;
+    var trs_option_down_name = null;
+    var trs_option_revers_name = null;
+
+    var trs_root_number = null;
+    var trs_root_option_front = null;
+    var trs_root_option_back = null;
+
+    var trs_root_option_front_name = null;
+    var trs_root_option_back_name = null;
+
+  }
+  /************************/
+  setCMDTrsEnableID(par){
+    this.cmd_trs_enable_id = par;
+  }
+  getCMDTrsEnableID(){
+    return this.cmd_trs_enable_id;
+  }
+  /************************/
+  setCMDTrsEnableModeGroupID(par){
+    this.cmd_trs_enable_pro_id = par;
+  }
+  getCMDTrsEnableModeGroupID(){
+    return this.cmd_trs_enable_pro_id;
+  }
+  /************************/
+  setCMDTrsModePullID(par){
+    this.cmd_trs_mode_pull_rcp_id = par;
+  }
+  getCMDTrsModePullID(){
+    return this.cmd_trs_mode_pull_rcp_id;
+  }
+  /************************/
+  setCMDTrsModeBuyIndividualID(par){
+    this.cmd_trs_mode_ind_rcp_id = par;
+  }
+  getCMDTrsModeBuyIndividualID(){
+    return this.cmd_trs_mode_ind_rcp_id;
+  }
+  /************************/
+  setCMDTrsModeBuyCalenderID(par){
+    this.cmd_trs_mode_cld_rcp_id = par;
+  }
+  getCMDTrsModeBuyCalenderID(){
+    return this.cmd_trs_mode_cld_rcp_id;
+  }
+  /************************/
+  setCMDTrsModeBuyCalenderID(par){
+    this.cmd_trs_mode_cld_rcp_id = par;
+  }
+  getCMDTrsModeBuyCalenderID(){
+    return this.cmd_trs_mode_cld_rcp_id;
+  }
+  /************************/
+  setCMDTrsModeID(par){
+    this.cmd_trs_mode_id = par;
+  }
+  getCMDTrsModeID(){
+    return this.cmd_trs_mode_id;
+  }
+  /************************/
+  setCMDTrsModeGroupID(par){
+    this.cmd_trs_group_mode_id = par;
+  }
+  getCMDTrsModeGroupID(){
+    return this.cmd_trs_group_mode_id;
+  }
+  /************************/
+  setCMDTrsNumberSet(par){
+    this.trs_set = par;
+  }
+  getCMDTrsNumberSet(){
+    return this.trs_set;
+  }
+  /************************/
+  setCMDTrsNumberPrice(par){
+    this.trs_price = par;
+  }
+  getCMDTrsNumberPrice(){
+    return this.trs_price;
+  }
+  /************************/
+  setCMDTrsTotalNumberBuy(par){
+    this.trs_number = par;
+  }
+  getCMDTrsTotalNumberBuy(){
+    return this.trs_number;
+  }
+  /************************/
+  setCMDTrsOptionUp(par){
+    this.trs_option_up = par;
+  }
+  getCMDTrsOptionUp(){
+    return this.trs_option_up;
+  }
+  /************************/
+  setCMDTrsOptionUpName(par){
+    this.trs_option_up_name = par;
+  }
+  getCMDTrsOptionUpName(){
+    return this.trs_option_up_name;
+  }
+  /************************/
+  setCMDTrsOptionDown(par){
+    this.trs_option_down = par;
+  }
+  getCMDTrsOptionDown(){
+    return this.trs_option_down;
+  }
+  /************************/
+  setCMDTrsOptionDownName(par){
+    this.trs_option_down_name = par;
+  }
+  getCMDTrsOptionDownName(){
+    return this.trs_option_down_name;
+  }
+  /************************/
+  setCMDTrsOptionRevers(par){
+    this.trs_option_revers = par;
+  }
+  getCMDTrsOptionRevers(){
+    return this.trs_option_revers;
+  }
+  /************************/
+  setCMDTrsOptionReversName(par){
+    this.trs_option_revers_name = par;
+  }
+  getCMDTrsOptionReversName(){
+    return this.trs_option_revers_name;
+  }
+  /************************/
+  setCMDTrsRootNumber(par){
+    this.trs_root_number = par;
+  }
+  getCMDTrsRootNumber(){
+    return this.trs_root_number;
+  }
+  /************************/
+  setCMDTrsRootFront(par){
+    this.trs_root_option_front = par;
+  }
+  getCMDTrsRootFront(){
+    return this.trs_root_option_front;
+  }
+  /************************/
+  setCMDTrsRootFrontName(par){
+    this.trs_root_option_front_name = par;
+  }
+  getCMDTrsRootFrontName(){
+    return this.trs_root_option_front_name;
+  }
+  /************************/
+  setCMDTrsRootBack(par){
+    this.trs_root_option_back = par;
+  }
+  getCMDTrsRootBack(){
+    return this.trs_root_option_back;
+  }
+  /************************/
+  setCMDTrsRootBackName(par){
+    this.trs_root_option_back_name = par;
+  }
+  getCMDTrsRootBackName(){
+    return this.trs_root_option_back_name;
+  }
+  /************************/
+
+}
+class BetRound{
+  constructor(){
+    var round_title_name = null;
+    var round_number = null;
+    var str_date_time_exp = null;
+    var str_date_time_exp_left = null;
+    var str_date_time_countdown = null;
+    var str_url_round = null;
+    var index_card = null;
+    var is_select_round_status = false;
+  }
+  /************************/
+  setIsSelectRound(par){
+    this.is_select_round_status = par;
+  }
+  getIsSelectRound(){
+    return this.is_select_round_status;
+  }
+  /************************/
+  setBetRoundIndexCard(par){
+    this.index_card = par;
+  }
+  getBetRoundIndexCard(){
+    return this.index_card;
+  }
+  /************************/
+  setBetRoundNumber(par){
+    this.round_number = par;
+  }
+  getBetRoundNumber(){
+    return this.round_number;
+  }
+  /************************/
+  setBetRoundDateTimeExp(par){
+    this.str_date_time_exp = par;
+  }
+  getBetRoundDateTimeExp(){
+    return this.str_date_time_exp;
+  }
+  /************************/
+  setBetRoundDateTimeExpLeft(par){
+    this.str_date_time_exp_left = par;
+  }
+  getBetRoundDateTimeExpLeft(){
+    return this.str_date_time_exp_left;
+  }
+  /************************/
+  setBetRoundDateTimeCountdown(par){
+    this.str_date_time_countdown = par;
+  }
+  getBetRoundDateTimeCountdown(){
+    return this.str_date_time_countdown;
+  }
+  /************************/
+  setBetURLRound(par){
+    this.str_url_round = par;
+  }
+  getBetURLRound(){
+    return this.str_url_round;
+  }
+  /************************/
+  setRoundTitleName(par){
+    this.round_title_name = par;
+  }
+  getRoundTitleName(){
+    return this.round_title_name;
+  }
+  /************************/
+
+}
+class BetTransactionList{
+  constructor(){
+    var status = false;
+    var trs_list_round_title = null;
+    var trs_list_round_number = null;
+    var trs_list_date_time = null;
+    var trs_list_id = null;
+    var trs_list_count = null;
+    var trs_list_credit = null;
+  }
+  /************************/
+  setTrsListsStatus(par){
+    this.status = par;
+  }
+  getTrsListsStatus(){
+    return this.status;
+  }
+  /************************/
+  setTrsListRoundTitleName(par){
+    this.trs_list_round_title = par;
+  }
+  getTrsListRoundTitleName(){
+    return this.trs_list_round_title;
+  }
+  /************************/
+  setTrsListRoundNumber(par){
+    this.trs_list_round_number = par;
+  }
+  getTrsListRoundNumber(){
+    return this.trs_list_round_number;
+  }
+  /************************/
+  setTrsListDateTime(par){
+    this.trs_list_date_time = par;
+  }
+  getTrsListDateTime(){
+    return this.trs_list_date_time;
+  }
+  /************************/
+  setTrsListID(par){
+    this.trs_list_id = par;
+  }
+  getTrsListID(){
+    return this.trs_list_id;
+  }
+  /************************/
+  setTrsListNumber(par){
+    this.trs_list_count = par;
+  }
+  getTrsListNumber(){
+    return this.trs_list_count;
+  }
+  /************************/
+  setTrsListCredit(par){
+    this.trs_list_credit = par;
+  }
+  getTrsListCredit(){
+    return this.trs_list_credit;
+  }
+}
+class SevRoomSwitch{
+  constructor(){
+    var url_room = null;
+    var time_next_round_exp = null;
+    var time_next_shoot_exp = null;
+  }
+  /************************/
+  setRoomSwitchTimeRoundLeft(par){
+    this.time_next_round_exp = par;
+  }
+  getRoomSwitchTimeNextRoundExp(){
+    return this.time_next_round_exp;
+  }
+  /************************/
+  setRoomSwitchTimeShoot(par){
+    this.time_next_shoot_exp = par;
+  }
+  getRoomSwitchTimeNextShootExp(){
+    return this.time_next_shoot_exp;
+  }
+  /************************/
+  setRoomSwitchUrlRoom(par){
+    this.url_room = par;
+  }
+  getRoomSwitchUrlRoom(){
+    return this.url_room;
+  }
+
+}
+class BetRanking{
+
+  constructor(){
+    var ranking_is_my_rank_matching = false;
+    var ranking_is_find_my_rank = false;
+    var ranking = null;
+    var ranking_number_shoot = null;
+    var ranking_username = null;
+    var ranking_date_time = null;
+    var ranking_date_time_predict = null;
+  }
+  /************************/
+  setBetRankingIsMatching(par){
+    this.ranking_is_my_rank_matching = par;
+  }
+  getBetRankingIsMatching(){
+    return this.ranking_is_my_rank_matching;
+  }
+  /************************/
+  setBetRankingIsFindMyRank(par){
+    this.ranking_is_find_my_rank = par;
+  }
+  getBetRankingIsFindMyRank(){
+    return this.ranking_is_find_my_rank;
+  }
+  /************************/
+  setBetRanking(par){
+    this.ranking = par;
+  }
+  getBetRanking(){
+    return this.ranking;
+  }
+  /************************/
+  setBetRankingNumberShoot(par){
+    this.ranking_number_shoot = par;
+  }
+  getBetRankingNumberShoot(){
+    return this.ranking_number_shoot;
+  }
+  /************************/
+  setBetRankingUsername(par){
+    this.ranking_username = par;
+  }
+  getBetRankingUsername(){
+    return this.ranking_username;
+  }
+  /************************/
+  setBetRankingDateTime(par){
+    this.ranking_date_time = par;
+  }
+  getBetRankingDateTime(){
+    return this.ranking_date_time;
+  }
+  /************************/
+  setBetRankingPredictDateTime(par){
+    this.ranking_date_time_predict = par;
+  }
+  getBetRankingPredictDateTime(){
+    return this.ranking_date_time_predict;
+  }
+
+
+}
+class SevCmdSetTimeStop{
+  constructor(){
+    var time_disable_id = null;
+    var time_disable_group_id = null;
+    var time_start_hh = null;
+    var time_start_mn = null;
+    var time_stop_hh = null;
+    var time_stop_mn = null;
+  }
+  /************************/
+  setCMDTimeStopID(par){
+    this.time_disable_id = par;
+  }
+  getCMDTimeStopID(){
+    return this.time_disable_id;
+  }
+  /************************/
+  setCMDTimeStopGroupEnableID(par){
+    this.time_disable_group_id = par;
+  }
+  getCMDTimeStopGroupEnableID(){
+    return this.time_disable_group_id;
+  }
+  /************************/
+  setCMDTimeStopStartHH(par){
+    this.time_start_hh = par;
+  }
+  getCMDTimeStopStartHH(){
+    return this.time_start_hh;
+  }
+  /************************/
+  setCMDTimeStopStartMN(par){
+    this.time_start_mn = par;
+  }
+  getCMDTimeStopStartMN(){
+    return this.time_start_mn;
+  }
+  /************************/
+  setCMDTimeStopStopHH(par){
+    this.time_stop_hh = par;
+  }
+  getCMDTimeStopStopHH(){
+    return this.time_stop_hh;
+  }
+  /************************/
+  setCMDTimeStopStopMN(par){
+    this.time_stop_mn = par;
+  }
+  getCMDTimeStopStopMN(){
+    return this.time_stop_mn;
+  }
+
+}
+class SevCmdBrowser{
+  constructor(){
+    var browser_id = null;
+    var browser_group_property_id = null;
+  }
+  /************************/
+  setSevCMDBrowserID(par){
+    this.browser_id = par;
+  }
+  getSevCMDBrowserID(){
+    return this.browser_id;
+  }
+  /************************/
+  setSevCMDBrowserGroupEnableID(par){
+    this.browser_group_property_id = par;
+  }
+  getSevCMDBrowserGroupEnableID(){
+    return this.browser_group_property_id;
+  }
+}
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+var global_sev_play_program = new CMDPlayProgram();
+var global_paw_array = [];
+var global_sev_cmd_room_object = new CMDPlayRoom();
+var global_sev_cmd_random_shoot_object = new SevCmdRandomShoot();
+var global_shoot = new SevCMDShoot();
+var global_username = new SevCmdUsername();
+var global_sev_cmd_transaction = new SevCmdTransaction();
+var global_sev_cmd_time_stop = new SevCmdSetTimeStop();
+var global_sev_cmd_browser = new SevCmdBrowser();
+var global_status_transactions = "";
+var global_status_ranking = "";
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+
+
+function MF_BetGetFieldLogin(){
+
+  var test_str_username = "$";
+  var test_str_password = "@";
+
+  var total_field = [];
+  var is_login = false;
+
+  //normal field
+  var field = [];
+  field["username_click"] = "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV>INPUT BUTTON=0";
+  field["username_remove"] = "EVENTS TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV>INPUT KEYS=[8]";
+  field["username_input"] = "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV>INPUT CHAR=";
+  field["password_click"] = "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV:nth-of-type(2)>INPUT BUTTON=0"
+  field["password_remove"] = "EVENTS TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV:nth-of-type(2)>INPUT KEYS=[8]"
+  field["password_input"] = "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV:nth-of-type(2)>INPUT CHAR=";
+  total_field.push(field);
+
+  var field = [];
+  field["username_click"] = "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(4)>SPAN>FORM>DIV>INPUT BUTTON=0";
+  field["username_input"] = "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(4)>SPAN>FORM>DIV>INPUT CHAR=";
+  field["username_remove"] = "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(4)>SPAN>FORM>DIV>INPUT KEYS=[8]";
+  field["password_click"] = "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(4)>SPAN>FORM>DIV:nth-of-type(2)>INPUT BUTTON=0";
+  field["password_remove"] = "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(4)>SPAN>FORM>DIV:nth-of-type(2)>INPUT KEYS=[8]";
+  field["password_input"] = "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(4)>SPAN>FORM>DIV:nth-of-type(2)>INPUT CHAR="
+  total_field.push(field);
+
+
+  var field_complete = [];
+
+  for(var index = 0; index < total_field.length; index++){
+
+    GoURL(url_bet_login);
+    ImacroWaitTime(5);
+
+    var field_array = total_field[index];
+
+    var code_macro_user_click = field_array["username_click"];
+    var code_macro_user_input = field_array["username_input"];
+    var code_macro_user_remove = field_array["username_remove"];
+
+    var code_macro_pass_click = field_array["password_click"];
+    var code_macro_pass_input = field_array["password_input"];
+    var code_macro_pass_remove = field_array["password_remove"];
+
+    MF_BetKey_Test(code_macro_user_click, code_macro_user_input, test_str_username);
+    MF_BetKey_Test(code_macro_pass_click, code_macro_pass_input, test_str_password);
+
+    ImacroWaitTime(3);
+
+    var code = "";
+    code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT ATTR=* EXTRACT=TXT";
+    code += "\n" + "TAG POS=1 TYPE=INPUT:PASSWORD ATTR=* EXTRACT=TXT";
+    ImacroRun(code);
+
+    var bet_username = iimGetExtract(1);
+    var bet_password = iimGetExtract(2);
+
+    var is_username = (bet_username == test_str_username);
+    var is_password = (bet_password == test_str_password);
+    is_login = (is_username && is_password);
+
+    if(is_login){
+      field_complete = field_array;
+
+    }
+
+
+  }//End loop
+
+  if(!is_login){
+    alert("Field login failed");
+  }
+
+  return field_complete;
+
+}
+
+
+MainProgram();
+
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+//Variable ID
+var local_login_id = null;
+var local_round_id = null;
+var local_transaction_id = null;
+var local_rank_id = null;
+//Username
+var local_browser_id = null;
+var local_user_id = null;
+var local_user_name = null;
+var local_user_name_table_rank_reward = null;
+var local_user_name_table_rank_shooting = null;
+var local_trs_button_click_log = [];
+
+function MainProgram(){
+
+  local_trs_button_click_log = [];
+  /*************************************************************/
+  SevLoad();
+  //Variable ID
+  local_login_id = GenerateKeyCode();
+  local_round_id = GenerateKeyCode();
+  local_transaction_id = GenerateKeyCode();
+  local_rank_id = GenerateKeyCode();
+  //Username
+  local_browser_id = global_username.getUserBrowserID();
+  local_user_id = global_username.getUserID();
+  local_user_name = global_username.getUserName();
+  local_user_name_table_rank_reward = CovUsernameToCensor(local_user_name, "x", 3, 5);
+  local_user_name_table_rank_shooting = CovUsernameToCensor(local_user_name, "x", 3, 5);
+
+  var local_play_pattern_id = global_username.getPlayPatternID();
+  Sent_Login(local_login_id, local_play_pattern_id, local_browser_id, local_user_id);
+  /*************************************************************/
+
+  var is_browser_enable = (global_sev_cmd_browser.getSevCMDBrowserGroupEnableID() == sev_fix_mode_enable);
+  var is_cmd_sev_time_stop = Check_SevTimeStop(global_sev_cmd_time_stop);
+
+  if(is_browser_enable){
+    //Server browser enable
+
+    if(!is_cmd_sev_time_stop){
+    //Don't stop time
+    var my_username_current = global_username.getUserName();
+    var is_load_username = (my_username_current != "") && (my_username_current != null) && (my_username_current.length != 0);
+
+      if(is_load_username){
+        //Load username from server complete
+        var is_login = LoginProcess();
+        if(!is_login){
+          alert("Login failed");
+        }
+        /*************************/
+        MF_BetTransaction_Cancel(local_transaction_id);
+        /*************************/
+        var local_group_room_id = global_sev_cmd_room_object.getCMDGroupRoomID();
+        SwitchRoomProcess(global_sev_cmd_room_object);
+        /*************************/
+
+        GoURL(global_bet_url_for_play_room);
+        ImacroWaitTime(10);
+
+        /*************************/
+        var local_bet_round_object = new BetRound();
+        local_bet_round_object = MF_SelectRound(global_select_card_complete_play_index);
+        var local_is_play_round = local_bet_round_object.getIsSelectRound();
+        /*************************/
+        var local_bet_trs_object = new BetTransactionList();
+        /*************************/
+        //Local variable
+        //Room
+        var local_room_id = global_sev_cmd_room_object.getCMDRoomID();
+        //Shoot
+        var local_shoot_total_array = [];
+        var local_shoot_last_date_time = new Date();
+        //Round
+        var local_round_date_time_exp = new Date();
+        local_round_date_time_exp = local_bet_round_object.getBetRoundDateTimeExp();
+        var local_round_title_name = local_bet_round_object.getRoundTitleName();
+
+        var local_round_time_exp_left = new Date(local_round_date_time_exp);
+        local_round_time_exp_left.setSeconds(local_round_time_exp_left.getSeconds() + global_time_round_left_of_limit_round_transaction_seconds);
+        local_bet_round_object.setBetRoundDateTimeExpLeft(local_round_time_exp_left);
+
+        var local_round_url = local_bet_round_object.getBetURLRound();
+
+        var local_round_date_time_limit_trs_buy = new Date(local_round_date_time_exp);
+        local_round_date_time_limit_trs_buy.setSeconds(local_round_date_time_limit_trs_buy.getSeconds() - global_fix_distance_trs_buy_sec);
+
+        var local_round_check_friend_ship_limit = new Date(local_round_date_time_exp);
+        local_round_check_friend_ship_limit.setSeconds(local_round_check_friend_ship_limit.getSeconds() - global_fix_distance_friend_ship_sec);
+
+        if(local_is_play_round){
+          //get time shoot
+          var round_date_time_exp = new Date(local_round_date_time_exp);
+          round_date_time_exp.setSeconds(round_date_time_exp.getSeconds() + global_time_round_shoot_of_limit_round_transaction_seconds);
+          local_shoot_total_array = BuildTimeShoot(round_date_time_exp);
+          local_shoot_last_date_time = getLastArray(local_shoot_total_array);
+
+          /*************************/
+          //Transaction
+
+          GoURL(local_round_url);
+          ImacroWaitTime(5);
+          var credit_transaction_before = MF_BetGetCredit();
+          local_bet_trs_object = TransactionProcess(local_round_date_time_limit_trs_buy);
+          var credit_transaction_after = MF_BetGetCredit();
+          var sev_trs_price = global_sev_cmd_transaction.getCMDTrsNumberPrice();
+          var is_credit_matching = (credit_transaction_before >= sev_trs_price);
+          if(!is_credit_matching){
+            alert("Credit no enought");
+          }
+          /*************************/
+          //Sent Login
+          /*************************/
+          //Sent credit
+          Sent_Credit(local_login_id, GROUP_CREDIT_BEFORE_TRS, "", credit_transaction_before);
+          Sent_Credit(local_login_id, GROUP_CREDIT_AFTER_TRS, "", credit_transaction_after);
+          /*************************/
+          //Sent Register round
+          Sent_RegisterRound(local_bet_round_object,
+            local_round_id, local_login_id, local_room_id,
+            global_web_bet_name, local_round_time_exp_left);
+
+          Sent_RegisterTransaction(local_transaction_id ,local_round_id, local_bet_trs_object, global_sev_cmd_transaction);
+
+          /*************************/
+          //Random Shoot
+          var is_random_shoot_enable = RandomShootProcess(global_sev_cmd_random_shoot_object, local_bet_round_object, local_shoot_last_date_time);
+
+          var is_friend_have_transaction = Check_FriendShip(
+            is_random_shoot_enable,
+            global_sev_cmd_transaction,
+            global_username,
+            local_bet_round_object,
+            global_sev_cmd_room_object,
+            local_round_check_friend_ship_limit
+          );
+
+          /*************************/
+
+          if(is_friend_have_transaction){
+              GoURL(local_round_url);
+              ReduceTimeProcess(
+                global_shoot,
+                local_round_date_time_exp,
+                local_shoot_last_date_time,
+                local_user_name_table_rank_shooting,
+                global_button_shoot_distance_seconds);
+              //Final Shoot
+              GoURL(local_round_url);
+              CutTime(local_shoot_last_date_time);
+              ShootProcess(local_shoot_total_array);
+
+              var row_rank_array = [];
+              row_rank_array = FindMyRankWinner(local_round_url, local_user_name_table_rank_reward, global_number_of_page_find_rank_array);
+              Sent_RegisterRank(local_rank_id, local_round_id, global_shoot, row_rank_array, global_sev_cmd_random_shoot_object);
+
+          }else{
+            //Transaction cancel
+            MF_BetTransaction_Cancel(local_transaction_id);
+            Sent_Event(EVENT_TRANSACTION_FRIEND_NOT_FOUND, local_login_id, "BTFF01", "", "");
+            alert("Friend don't have transaction");
+          }
+          /*************************/
+
+        }else{
+          //time card round fail
+          Sent_Event(EVENT_ROUND_SELECT_FAIL, local_login_id, "BRSF02", "", "");
+          alert("[Round Not Found] No play round");
+        }
+
+      }else{
+        //Don't have load username from server
+        Sent_Event(EVENT_TRANSACTION_FRIEND_NOT_FOUND, local_login_id, "BTFF01", "", "");
+        alert("Can't load username from server! ");
+      }//End check load username form server
+
+    }else{
+      Sent_Event(EVENT_SERVER_TIME_STOP_DISABLE, local_login_id, "STSD01", "", "");
+      var url_error = url_server + "/sent_command_setting/setting_bot/menu_stop_time_for_play.php";
+      alert("Time stop from server" + "\n" + url_error);
+    }
+
+  }else{
+    //Server browser disable
+    Sent_Event(EVENT_BROWSER_DISABLE, local_login_id, "SBDS01", "", "");
+    alert("Browser Disable");
+  }
+
+
+}
+
+function RandomShootProcess(par_random_shoot_object, par_bet_round_object, par_date_time_shoot_last){
+
+  var round_object = new BetRound();
+  round_object = par_bet_round_object;
+
+  var random_shoot_object = new SevCmdRandomShoot();
+  random_shoot_object = par_random_shoot_object;
+
+  var random_shoo_group_id = random_shoot_object.getCMDGroupRandomShootID();
+  var is_random_shoot_enable = (random_shoo_group_id == sev_fix_mode_enable);
+
+  if(is_random_shoot_enable){
+    //is random shoot enable
+
+    var date_time_last_shoot = new Date(par_date_time_shoot_last);
+
+    var time_distance_random_shoot_sec = random_shoot_object.getSevCmdRandomShootTimeMS();
+    var total_date_time_random_shoot_array = [];
+
+    total_date_time_random_shoot_array = GenerateRandomShoot(date_time_last_shoot, time_distance_random_shoot_sec);
+    var is_have_date_time_random_shoot = (total_date_time_random_shoot_array.length > 0);
+
+    if(is_have_date_time_random_shoot){
+      //is have date time random shoot fenerate
+      var round_url = round_object.getBetURLRound();
+      GoURL(round_url);
+      ImacroWaitTime(3);
+      MF_BetShoot_ClickTabShoot();
+      ShootProcess(total_date_time_random_shoot_array);
+
+    }else{
+      //is don't have date time random shoot fenerate
+      Sent_Event(EVENT_SHOOT_NOT_FOUND, local_login_id, "STSNF01", "", "");
+      alert("[Fail Random Shoot] is don't have date time random shoot");
+    }
+
+  }else{
+    //is not random shoot disable
+
+  }//Checn random shoot enable ?
+
+  return is_random_shoot_enable;
+
+
+}
+function TransactionProcess(par_date_time_limit_buy){
+
+
+  var date_time_limit_buy = new Date(par_date_time_limit_buy);
+
+  var transaction_object = new SevCmdTransaction();
+  transaction_object = global_sev_cmd_transaction;
+  var cmd_trs_enable_mode_id = transaction_object.getCMDTrsEnableModeGroupID();
+  var is_trs_enable = (cmd_trs_enable_mode_id == sev_fix_mode_enable);
+
+  var trs_list_object = new BetTransactionList();
+
+  var trs_mode_group = transaction_object.getCMDTrsModeGroupID();
+  var is_trs_mode_pull = (trs_mode_group == sev_fix_trs_mode_pull);
+  var is_trs_mode_individual = (trs_mode_group == sev_fix_trs_mode_individual);
+  var is_trs_mode_calender = (trs_mode_group == sev_fix_trs_mode_calender);
+
+  var str = "Trs group mode id: " + trs_mode_group;
+  str += "\n" + "Trs mode pull: " + is_trs_mode_pull;
+  str += "\n" + "Trs mode individual: " + is_trs_mode_individual;
+  str += "\n" + "Trs mode calender: " + is_trs_mode_calender;
+  str += "\n" + CovDateToSTRSql(new Date());
+  global_status_transactions += "\n" + str;
+
+  if(is_trs_enable){
+    //is transaction enable mode (can buy transaction)
+
+    if(is_trs_mode_pull){
+      //Pull
+      MF_BetTransaction_ModePull();
+
+    }else if(is_trs_mode_individual){
+      //Individual
+      MF_BetTransaction_ModeIndividual();
+
+    }else if(is_trs_mode_calender){
+      //Calender
+      MF_BetTransactionSelectOptions(global_sev_cmd_transaction);
+      ImacroWaitTime(1);
+      MF_BetTransaction_ModeCalender(global_sev_cmd_transaction);
+      ImacroWaitTime(5);
+      MF_BetTransaction_ClickKeyNumber();
+      ImacroWaitTime(5);
+    }else{
+      Sent_Event(EVENT_TRANSACTION_MODE_NOT_FOUND, local_login_id, "STMF01", "", "");
+      alert("Don't have transaction mode");
+
+    }//End Transacrion group mode
+
+
+
+    var is_total_number_buy_matching = TransactionTotalNumberBuyMatching(global_sev_cmd_transaction);
+
+    if(is_total_number_buy_matching){
+      //MF_BetTransaction_ClickKeyPrice();
+      trs_list_object = MF_BetTransactionListBuy(global_sev_cmd_transaction, date_time_limit_buy);
+    }
+
+
+  }//End check is trs enable mode
+
+  return trs_list_object;
+
+}
+function FriendShipProcess(par_username_object, par_round_object, par_room_id){
+
+  var username_object = new SevCmdUsername();
+  username_object = par_username_object;
+
+  var round_object = new BetRound();
+  round_object = par_round_object;
+
+  var friend_ship_group_mode = username_object.getFriendshipGroupID();
+
+  var my_user_id = username_object.getUserID();
+
+  var friend_user_id = username_object.getFriendUserID();
+  var is_friend_ship_mode_enable = (friend_ship_group_mode == sev_fix_mode_enable);
+
+  var is_have_trs = false;
+
+  if(is_friend_ship_mode_enable){
+    //Check friend ship username
+    var round_number = round_object.getBetRoundNumber();
+    var round_date_time_exp = round_object.getBetRoundDateTimeExp();
+    var room_id = par_room_id;
+
+    var yy = round_date_time_exp.getFullYear();
+    var mm = round_date_time_exp.getMonth();
+    var dd = round_date_time_exp.getDate();
+
+    mm = mm + 1;
+
+    yy = CovZeroNumber(yy);
+    mm = CovZeroNumber(mm);
+    dd = CovZeroNumber(dd);
+
+    var hh = round_date_time_exp.getHours();
+    var mn = round_date_time_exp.getMinutes();
+    var ss = round_date_time_exp.getSeconds();
+
+    hh = CovZeroNumber(hh);
+    mn = CovZeroNumber(mn);
+    ss = CovZeroNumber(ss);
+
+    var date_exp = yy + "-" + mm + "-" + dd;
+    var time_exp = hh + ":" + mn + ":" + ss;
+
+    var url = url_friend_ship + "?room_id=" + room_id;
+    url += "&user_id=" + my_user_id;
+    url += "&friend_user_id=" + friend_user_id;
+    url += "&round_number=" + round_number;
+    url += "&date_exp=" + date_exp;
+    url += "&time_exp=" + time_exp;
+
+    GoURL(url);
+
+    ImacroWaitTime(3);
+
+
+    var code = "";
+    code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:my_user_name EXTRACT=TXT";
+    code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:my_reg_trs_id EXTRACT=TXT";
+    code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:friend_user_name EXTRACT=TXT"
+    code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:friend_reg_trs_id EXTRACT=TXT";
+    ImacroRun(code);
+
+    var my_user_name = iimGetExtract(1);
+    var my_reg_trs_id = iimGetExtract(2);
+    var friend_user_name = iimGetExtract(3);
+    var friend_reg_trs_id = iimGetExtract(4);
+
+    var is_my_trs = (my_reg_trs_id != null) && (my_reg_trs_id != "");
+    var is_friend_trs = (friend_reg_trs_id != null) && (friend_reg_trs_id != "");
+
+    is_have_trs = (is_my_trs && is_friend_trs);
+
+  }else{
+    //Check friend ship disable
+    //transaction is true complete
+    is_have_trs = true;
+  }
+
+  return is_have_trs;
+}
+function ShootProcess(par_shoot_date_time_array){
+
+  var shoot_length = par_shoot_date_time_array.length;
+
+  for(var index = 0; index < shoot_length; index++){
+
+    var date_time_shoot = new Date();
+    date_time_shoot = par_shoot_date_time_array[index];
+
+    ImacroWaitTime(1);
+    MF_BetShoot_ClickButtonRandomNumber();
+    MF_ShotButton(date_time_shoot);
+
+  }//End loop total shoot array
+
+}
+function LoginProcess(){
+
+
+  var field_object = [];
+
+
+
+
+  /*******************************/
+
+  var psw_size = global_paw_array.length;
+  var is_login = false;
+
+  for(var index = 0; index < psw_size; index++){
+
+    var psw_current = global_paw_array[index];
+    psw_current = PswRevert(psw_current);
+
+    is_login = MF_BetLogin_CheckUser();
+
+    if(!is_login){
+      //page is not login
+      //login current is username not match
+      var is_first_time = (index == 0);
+      if(is_first_time){
+        LoguotProcess();
+        field_object = MF_BetGetFieldLogin();
+      }
+      MF_LoginKey(global_username, psw_current, field_object);
+    }else{
+      //login current matcing complete
+      //alert("login current");
+    }
+
+  }//End loop total psw
+
+  return is_login;
+
+}
+function LoguotProcess(){
+  var code = "'Logout'";
+  code += "\n" + "URL GOTO=https://chudjenbet.com/member/profile";
+  code += "\n" + "TAG POS=1 TYPE=I ATTR=CLASS:far<SP>fa-bars";
+  code += "\n" + "WAIT SECONDS=1.5";
+  code += "\n" + "TAG POS=2 TYPE=I ATTR=CLASS:text-lg<SP>fas<SP>fa-sign-out-alt";
+  code += "\n" + "WAIT SECONDS=5";
+  ImacroRun(code);
+}
+function ReduceTimeProcess(par_cmd_shoot_object, par_round_date_time_exp, par_last_shoot_date_time, par_username_last_shoot_censor, par_shoot_distance_ms){
+
+   var cmd_shoot_object = par_cmd_shoot_object;
+   var is_reduce_mode = (cmd_shoot_object.getCMDReduceGroupID() != sev_fix_mode_reduce_disable);
+   var round_date_time_exp = new Date();
+   round_date_time_exp = par_round_date_time_exp;
+
+   var last_shoot_date_time = new Date();
+   last_shoot_date_time = par_last_shoot_date_time;
+
+   var username_last_shot_censor = par_username_last_shoot_censor;
+
+   if(is_reduce_mode){
+     //reduce mode enable
+     /*************************************/
+     var date_time_currnet = new Date();
+     var wait_ms = (round_date_time_exp - date_time_currnet);
+     var is_have_wait_time = (wait_ms >= 0);
+     var wait_seconds = (wait_ms / 1000);
+     var str = "Wait shoot reduce: " + wait_seconds + " Sec";
+     MF_BetShoot_ClickTabShoot();
+     ImacroWaitTimeSTR(wait_seconds, str);
+     /*************************************/
+     var reduce_time_ms = getReduceTimeMS(
+       cmd_shoot_object,
+       last_shoot_date_time,
+       username_last_shot_censor,
+       par_shoot_distance_ms);
+     /*************************************/
+   }//End check is reduce mode enable
+
+ }
+function SwitchRoomProcess(par_cmd_play_room){
+
+   var cmd_play_room = new CMDPlayRoom();
+   cmd_play_room = par_cmd_play_room;
+
+   global_time_round_shoot_of_limit_round_transaction_seconds = cmd_play_room.getCMDGroupRoomLastShootTime();
+   global_time_round_left_of_limit_round_transaction_seconds = cmd_play_room.getCMDGroupRoomLastRoundTime();
+   global_bet_url_for_play_room = cmd_play_room.getCMDGroupRoomURL();
+
+   global_number_of_page_find_rank_array = cmd_play_room.getCMDGroupRoomPageSaveRanking();
+   global_number_of_page_find_rank_array = CutEmpty(global_number_of_page_find_rank_array);
+   global_number_of_page_find_rank_array = CovStrToArray(global_number_of_page_find_rank_array , ",");
+
+
+   global_fix_distance_friend_ship_sec = cmd_play_room.getCMDGroupRoomLastFriendShipTime();
+   global_fix_distance_trs_buy_sec = cmd_play_room.getCMDGroupRoomLastTrsBuyTime();;
+
+
+ }
+
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function FindMyRankWinner(par_round_url, par_my_username, par_find_page_array){
+
+  var rank_row_array = [];
+
+  var row_log = "";
+
+  var my_username = par_my_username;
+  my_username = CutEmpty(my_username);
+  my_username = my_username.toLowerCase();
+
+  var find_page_array = par_find_page_array;
+
+  var url_round = par_round_url;
+
+  for(var index_page = 0; index_page < find_page_array.length; index_page++){
+
+    var index_page_current = find_page_array[index_page];
+    var url_page = url_round + "?uniqueId=rand_26";
+    url_page += "&page=";
+    url_page += index_page_current;
+
+    GoURL(url_page);
+    ImacroWaitTime(5);
+
+    var is_first_page = (index_page == 0);
+
+    if(index_page){
+      global_status_ranking += "|!" + MF_BetGetRankingWinnerHeader();
+    }
+
+    var list_length = window.document.getElementsByClassName("shoot-list").length;
+    var is_have_list_winner_table = (list_length > 0);
+
+    if(is_have_list_winner_table){
+      var row_ranking_size = window.document.getElementsByClassName("shoot-list")[0].getElementsByClassName("shoot-item").length;
+
+        for(var index = 0; index < row_ranking_size; index++){
+
+          var bet_rank_username = window.document.getElementsByClassName("shoot-list")[0].getElementsByClassName("shoot-item")[index].getElementsByClassName("name")[0].innerText;
+          bet_rank_username = CutEmpty(bet_rank_username);
+          bet_rank_username = bet_rank_username.toLowerCase();
+
+          var rank_number = window.document.getElementsByClassName("shoot-list")[0].getElementsByClassName("shoot-item")[index].getElementsByClassName("no")[0].innerText;
+          var rank_key_number = window.document.getElementsByClassName("shoot-list")[0].getElementsByClassName("shoot-item")[index].getElementsByClassName("number")[0].innerText;
+          var rank_key_date_time = window.document.getElementsByClassName("shoot-list")[0].getElementsByClassName("shoot-item")[index].getElementsByClassName("time")[0].innerText;
+
+
+          var is_my_rank = (bet_rank_username == my_username);
+
+
+          rank_number = CutEmpty(rank_number);
+          my_username = CutEmpty(my_username);
+          bet_rank_username = CutEmpty(bet_rank_username);
+          rank_key_number = CutEmpty(rank_key_number);
+          rank_key_date_time = CutEmpty(rank_key_date_time);
+
+          rank_number = ImacroSTR(rank_number);
+          my_username = ImacroSTR(my_username);
+          bet_rank_username = ImacroSTR(bet_rank_username);
+          rank_key_number = ImacroSTR(rank_key_number);
+          rank_key_date_time = ImacroSTR(rank_key_date_time);
+
+          row_log = "|!";
+          row_log += "|!" + "Ranking: "  + rank_number;
+          row_log += "|!" + "My Username: "  + my_username;
+          row_log += "|!" + "Ranking Username: " + bet_rank_username;
+          row_log += "|!" + "Number Shoot: " + rank_key_number;
+          row_log += "|!" + "Date tiem: " + rank_key_date_time;
+          row_log += "|!" + "My Rank ?: " + is_my_rank;
+          row_log = ImacroSTR(row_log);
+
+          if(is_my_rank){
+
+            var row = [];
+            row["rank_number"] = rank_number;
+            row["rank_username"] = bet_rank_username;
+            row["rank_key_number"] = rank_key_number;
+            row["rank_date_time"] = rank_key_date_time;
+
+            rank_row_array.push(row);
+
+          }//End check is row current my rank
+
+        }//End loop total row rank
+
+    }//End check element
+
+  }//End loop find rank page
+
+
+  global_status_ranking += row_log;
+
+  return rank_row_array;
+
+}
+function MyShootMatching(par_user_name_censor, par_date_time_predict){
+
+  var date_time_predict = new Date();
+  date_time_predict = par_date_time_predict;
+
+  var username_censor = par_user_name_censor;
+  var row_ranking = new BetRanking();
+  row_ranking = FindMyRankThisPage(username_censor);
+
+  var is_have_my_ranking = row_ranking.getBetRankingIsFindMyRank();
+  var date_time_matching = false;
+
+  if(is_have_my_ranking){
+
+    var row_ranking_date_time = new Date();
+    row_ranking_date_time = row_ranking.getBetRankingDateTime();
+
+    date_time_predict.setMilliseconds(0);
+    row_ranking_date_time.setMilliseconds(0);
+
+    var distance_ms = (date_time_predict - row_ranking_date_time);
+    date_time_matching = (distance_ms == 0);
+
+    row_ranking.setBetRankingIsMatching(date_time_matching);
+    row_ranking.setBetRankingPredictDateTime(date_time_predict);
+
+    //alert(date_time_predict + "\n" + row_ranking_date_time);
+
+    //alert(date_time_matching);
+
+  }
+
+
+
+  return row_ranking;
+
+}
+function FindMyRankThisPage(par_my_username){
+  //for test
+  var betRanking = new BetRanking();
+
+  var table_row_rank_length = window.document.getElementsByClassName("number-key-list").length;
+  if(table_row_rank_length > 0){
+    var table_row_rank_length = window.document.getElementsByClassName("number-key-list")[0].getElementsByClassName("username").length;
+    if(table_row_rank_length > 0){
+      for(var index = 0; index < table_row_rank_length; index++){
+
+        var row_ranking = window.document.getElementsByClassName("number-key-list")[0]
+        .getElementsByClassName("no")[index].innerText;
+        row_ranking = CutEmpty(row_ranking);
+
+        var row_number_shoot = window.document.getElementsByClassName("number-key-list")[0]
+        .getElementsByClassName("key")[index].innerText;
+        row_number_shoot = CutEmpty(row_number_shoot);
+
+        var row_rank_username = window.document.getElementsByClassName("number-key-list")[0]
+        .getElementsByClassName("username")[index].innerText;
+        row_rank_username = CutEmpty(row_rank_username);
+
+        var row_rank_date_time_str = window.document.getElementsByClassName("number-key-list")[0]
+        .getElementsByClassName("date")[index].innerText;
+        var row_rank_date_time = new Date();
+        row_rank_date_time = CovThailottoDateTime(row_rank_date_time_str);
+
+        row_rank_username = row_rank_username.toLowerCase();
+        par_my_username = par_my_username.toLowerCase();
+
+        var is_my_row = (row_rank_username == par_my_username);
+
+        if(is_my_row){
+          betRanking.setBetRankingIsFindMyRank(true);
+          betRanking.setBetRanking(row_ranking);
+          betRanking.setBetRankingNumberShoot(row_number_shoot);
+          betRanking.setBetRankingUsername(row_rank_username);
+          betRanking.setBetRankingDateTime(row_rank_date_time);
+          break;
+        }
+      }//End loop total row rank
+
+    }//End check row
+
+  }//End check table
+
+  return betRanking;
+
+}
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function WaitBeforeCheckFriendShip(par_date_time_friend_ship_limit){
+
+  var date_time_friend_ship_limit = new Date(par_date_time_friend_ship_limit);
+  CutTime(date_time_friend_ship_limit);
+  /**
+  var date_time_current = new Date();
+  var ms_distance = (date_time_friend_ship_limit - date_time_current);
+  var sec_distance = ms_distance / 1000;
+  ImacroWaitTimeSTR(sec_distance, "Wait time to check friend ship");
+  **/
+  //alert(par_round_date_time + "\n" +  date_time_current + "\n" + round_date_time + "\n" + sec_distance + "\n" + ms_distance);
+}
+function BuildTimeShoot(par_date_time_exp){
+
+  var date_time_exp = new Date(par_date_time_exp);
+  var date_time_shoot_array = [];
+
+  /**********************************/
+
+  var time_shoot = global_shoot.getTimeOne();
+  var ss = time_shoot.getSS();
+  var ms = time_shoot.getMS();
+  var is_time_shoot = (ss != "") && (ms != "");
+
+  if(is_time_shoot){
+    var date_time_shoot = new Date(date_time_exp);
+    date_time_shoot.setSeconds(ss);
+    date_time_shoot.setMilliseconds(ms);
+    date_time_shoot_array.push(date_time_shoot);
+  }
+
+  /**********************************/
+
+  var time_shoot = global_shoot.getTimeTwo();
+  var ss = time_shoot.getSS();
+  var ms = time_shoot.getMS();
+  var is_time_shoot = (ss != "") && (ms != "");
+
+  if(is_time_shoot){
+    var date_time_shoot = new Date(date_time_exp);
+    date_time_shoot.setSeconds(ss);
+    date_time_shoot.setMilliseconds(ms);
+    date_time_shoot_array.push(date_time_shoot);
+  }
+
+  /**********************************/
+
+  var time_shoot = global_shoot.getTimeThree();
+  var ss = time_shoot.getSS();
+  var ms = time_shoot.getMS();
+  var is_time_shoot = (ss != "") && (ms != "");
+
+  if(is_time_shoot){
+    var date_time_shoot = new Date(date_time_exp);
+    date_time_shoot.setSeconds(ss);
+    date_time_shoot.setMilliseconds(ms);
+    date_time_shoot_array.push(date_time_shoot);
+  }
+
+  /**********************************/
+
+  return date_time_shoot_array;
+}
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function Sent_RegisterTransaction(par_trs_id ,par_rud_id, par_transaction_object, par_sev_trs_onject){
+
+  GoURL(url_sent_register_transaction);
+
+  var trs_object = new BetTransactionList();
+  trs_object = par_transaction_object;
+
+  var sev_cmd_trs_object = new SevCmdTransaction();
+  sev_cmd_trs_object = par_sev_trs_onject;
+
+  var trs_list_round_title_name = trs_object.getTrsListRoundTitleName()
+  var trs_list_id = trs_object.getTrsListID();
+  var trs_list_round_number = trs_object.getTrsListRoundNumber();
+  var trs_list_credit = trs_object.getTrsListCredit();
+  var trs_buy_date_time = trs_object.getTrsListDateTime();
+  var trs_status = trs_object.getTrsListsStatus();
+  var trs_list_number = trs_object.getTrsListNumber();
+
+  trs_buy_date_time = CovDateToSTRSql(trs_buy_date_time);
+
+  var reg_trs_cmd_trs_enable_id = sev_cmd_trs_object.getCMDTrsEnableID();
+  var reg_trs_cmd_trs_mode_id = sev_cmd_trs_object.getCMDTrsModeID();
+  var reg_trs_cmd_trs_mode_pull_rcp_id = sev_cmd_trs_object.getCMDTrsModePullID();
+  var reg_trs_cmd_trs_mode_ind_rcp_id = sev_cmd_trs_object.getCMDTrsModeBuyIndividualID();
+  var reg_trs_cmd_trs_mode_cld_rcp_id = sev_cmd_trs_object.getCMDTrsModeBuyCalenderID();
+
+  trs_list_round_title_name = ImacroSTR(trs_list_round_title_name);
+  trs_list_number = ImacroSTR(trs_list_number);
+  par_trs_id = ImacroSTR(par_trs_id);
+  par_rud_id = ImacroSTR(par_rud_id);
+
+  reg_trs_cmd_trs_enable_id = ImacroSTR(reg_trs_cmd_trs_enable_id);
+  reg_trs_cmd_trs_mode_id = ImacroSTR(reg_trs_cmd_trs_mode_id);
+  reg_trs_cmd_trs_mode_pull_rcp_id = ImacroSTR(reg_trs_cmd_trs_mode_pull_rcp_id);
+  reg_trs_cmd_trs_mode_ind_rcp_id = ImacroSTR(reg_trs_cmd_trs_mode_ind_rcp_id);
+  reg_trs_cmd_trs_mode_cld_rcp_id = ImacroSTR(reg_trs_cmd_trs_mode_cld_rcp_id);
+
+  trs_list_id = ImacroSTR(trs_list_id);
+  trs_list_round_number = ImacroSTR(trs_list_round_number);
+  trs_list_credit = ImacroSTR(trs_list_credit);
+  trs_buy_date_time = ImacroSTR(trs_buy_date_time);
+  trs_status = ImacroSTR(trs_status);
+
+  var str_trs_content = "";
+  for(var index = 0; index < local_trs_button_click_log.length; index++){
+    var content_current = local_trs_button_click_log[index];
+    content_current = CutEmpty(content_current);
+    str_trs_content += content_current;
+  }
+  str_trs_content = ImacroSTR(str_trs_content);
+
+
+  var code = "'Server sent register transaction'";
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_id CONTENT=" + par_trs_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_cmd_trs_enable_id CONTENT=" + reg_trs_cmd_trs_enable_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_cmd_trs_mode_id CONTENT=" + reg_trs_cmd_trs_mode_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_cmd_trs_mode_pull_rcp_id CONTENT=" + reg_trs_cmd_trs_mode_pull_rcp_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_cmd_trs_mode_ind_rcp_id CONTENT=" + reg_trs_cmd_trs_mode_ind_rcp_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_cmd_trs_mode_cld_rcp_id CONTENT=" + reg_trs_cmd_trs_mode_cld_rcp_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_id CONTENT=" + par_rud_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_list_id CONTENT=" + trs_list_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_title CONTENT=" + trs_list_round_title_name;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_content CONTENT=" + str_trs_content;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_round_number CONTENT=" + trs_list_round_number;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_price CONTENT=" + trs_list_credit;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_trs_buy_date_time CONTENT=" + trs_buy_date_time;
+  code += "\n" + "TAG POS=1 TYPE=BUTTON FORM=NAME:form ATTR=NAME:submit";
+
+  ImacroRun(code);
+
+  ImacroWaitTime(3);
+}
+
+function Sent_RegisterRank(par_reg_rank_id, par_reg_rud_id, par_cmd_shoot_object, par_row_rank_object, par_cmd_shoot_random_object){
+
+  GoURL(url_sent_rank);
+
+  var cmd_shoot_object = new SevCMDShoot();
+  cmd_shoot_object = par_cmd_shoot_object;
+
+  var reg_rank_id = par_reg_rank_id;
+  var reg_rank_reg_rud_id = par_reg_rud_id;
+  reg_rank_id = ImacroSTR(reg_rank_id);
+  reg_rank_reg_rud_id = ImacroSTR(reg_rank_reg_rud_id);
+
+  var reg_rank_content = global_status_ranking;
+
+  var reg_rank_cmd_shoot_mode_id = cmd_shoot_object.getSevCMDShootModeID();
+  var reg_rank_cmd_shoot_private_id = cmd_shoot_object.getCMDPrivateID();
+  var reg_rank_cmd_shoot_public_id = cmd_shoot_object.getCMDPublicID();
+  reg_rank_cmd_shoot_mode_id = ImacroSTR(reg_rank_cmd_shoot_mode_id);
+  reg_rank_cmd_shoot_private_id = ImacroSTR(reg_rank_cmd_shoot_private_id);
+  reg_rank_cmd_shoot_public_id = ImacroSTR(reg_rank_cmd_shoot_public_id);
+
+
+  var cmd_shoot_random_object = new SevCmdRandomShoot();
+  cmd_shoot_random_object = par_cmd_shoot_random_object;
+  var cmd_random_shoot_enable_id = cmd_shoot_random_object.getSevCmdRandomShootID();
+
+
+  //rank_number
+  //rank_username
+  //rank_key_number
+  //rank_date_time
+
+  var rank_one = "";
+  var rank_one_date_time = "";
+
+  if(par_row_rank_object.length >= 1){
+
+    var row_rank_object = par_row_rank_object[0];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+
+    rank_one = ImacroSTR(rank_number);
+    rank_one_date_time = ImacroSTR(rank_date_time);
+  }
+
+  /**********************************************/
+
+
+  var rank_two = "";
+  var rank_two_date_time = "";
+
+  if(par_row_rank_object.length >= 2){
+
+    var row_rank_object = par_row_rank_object[1];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_two = ImacroSTR(rank_number);
+    rank_two_date_time = ImacroSTR(rank_date_time);
+
+  }
+
+  /*************************/
+
+  var rank_three = "";
+  var rank_three_date_time = "";
+
+  if(par_row_rank_object.length >= 3){
+
+    var row_rank_object = par_row_rank_object[2];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_three = ImacroSTR(rank_number);
+    rank_three_date_time = ImacroSTR(rank_date_time);
+
+  }
+
+  /******************************************/
+
+  var rank_four = "";
+  var rank_four_date_time = "";
+  if(par_row_rank_object.length >= 4){
+
+    var row_rank_object = par_row_rank_object[3];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_four = ImacroSTR(rank_number);
+    rank_four_date_time = ImacroSTR(rank_date_time);
+  }
+
+  var rank_five = "";
+  var rank_five_date_time = "";
+
+  if(par_row_rank_object.length >= 5){
+
+    var row_rank_object = par_row_rank_object[4];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_five = ImacroSTR(rank_number);
+    rank_five_date_time = ImacroSTR(rank_date_time);
+
+  }
+
+  var rank_six = "";
+  var rank_six_date_time = "";
+
+  if(par_row_rank_object.length >= 6){
+
+    var row_rank_object = par_row_rank_object[5];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_six = ImacroSTR(rank_number);
+    rank_six_date_time = ImacroSTR(rank_date_time);
+
+  }
+
+  var rank_seven = "";
+  var rank_seven_date_time = "";
+
+  if(par_row_rank_object.length >= 7){
+
+    var row_rank_object = par_row_rank_object[6];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_seven = ImacroSTR(rank_number);
+    rank_seven_date_time = ImacroSTR(rank_date_time);
+  }
+
+  var rank_eight = "";
+  var rank_eight_date_time = "";
+
+  if(par_row_rank_object.length >= 8){
+
+    var row_rank_object = par_row_rank_object[7];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_eight = ImacroSTR(rank_number);
+    rank_eight_date_time = ImacroSTR(rank_date_time);
+
+  }
+
+  var rank_nine = "";
+  var rank_nine_date_time = "";
+
+  if(par_row_rank_object.length >= 9){
+
+    var row_rank_object = par_row_rank_object[8];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_nine = ImacroSTR(rank_number);
+    rank_nine_date_time = ImacroSTR(rank_date_time);
+
+  }
+
+  var rank_ten = "";
+  var rank_ten_date_time = "";
+
+  if(par_row_rank_object.length >= 10){
+
+    var row_rank_object = par_row_rank_object[9];
+
+    rank_number = row_rank_object["rank_number"];
+    rank_username = row_rank_object["rank_username"];
+    rank_key_number = row_rank_object["rank_key_number"];
+    rank_date_time = row_rank_object["rank_date_time"];
+
+    rank_ten = ImacroSTR(rank_number);
+    rank_ten_date_time = ImacroSTR(rank_date_time);
+
+  }
+
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rank_id CONTENT=" + reg_rank_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rank_reg_rud_id CONTENT=" + reg_rank_reg_rud_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rank_cmd_shoot_mode_id CONTENT=" + reg_rank_cmd_shoot_mode_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rank_cmd_shoot_private_id CONTENT=" + reg_rank_cmd_shoot_private_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rank_cmd_shoot_public_id CONTENT=" + reg_rank_cmd_shoot_public_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rank_cmd_shoot_random_enable_id CONTENT=" + cmd_random_shoot_enable_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rank_content CONTENT=" + reg_rank_content;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_one CONTENT=" + rank_one;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_one_date_time CONTENT=" + rank_one_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_two CONTENT=" + rank_two;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_two_date_time CONTENT=" + rank_two_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_three CONTENT=" + rank_three;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_three_date_time CONTENT=" + rank_three_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_four CONTENT=" + rank_four;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_four_date_time CONTENT=" + rank_four_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_five CONTENT=" + rank_five;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_five_date_time CONTENT=" + rank_five_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_six CONTENT=" + rank_six;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_six_date_time CONTENT=" + rank_six_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_seven CONTENT=" + rank_seven;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_seven_date_time CONTENT=" + rank_seven_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_eight CONTENT=" + rank_eight;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_eight_date_time CONTENT=" + rank_eight_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_nine CONTENT=" + rank_nine;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_nine_date_tme CONTENT=" + rank_nine_date_time;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_ten CONTENT=" + rank_ten;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:rank_ten_date_time CONTENT=" + rank_ten_date_time;
+  code += "\n" + "TAG POS=1 TYPE=BUTTON FORM=NAME:form ATTR=NAME:submit";
+  ImacroRun(code);
+
+  ImacroWaitTime(5);
+
+}
+function Sent_Credit(par_login_id, par_group_id, par_content, par_credit_number){
+
+  GoURL(url_sent_credit);
+
+  var credit_id = GenerateKeyCode();
+  var credit_group_id = par_group_id;
+  var credit_login_id = par_login_id;
+  var credit_content = par_content;
+  var credit_number = par_credit_number;
+
+  credit_id = ImacroSTR(credit_id);
+  credit_group_id = ImacroSTR(credit_group_id);
+  credit_login_id = ImacroSTR(credit_login_id);
+  credit_content = ImacroSTR(credit_content);
+  credit_number = ImacroSTR(credit_number);
+
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_credit_id CONTENT=" + credit_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_credit_group_credit_id CONTENT=" + credit_group_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_credit_login_id CONTENT=" + credit_login_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_credit_content CONTENT=" + credit_content;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_credit_number CONTENT=" + credit_number;
+  code += "\n" + "TAG POS=1 TYPE=BUTTON FORM=NAME:form ATTR=TYPE:submit&&CLASS:btn<SP>btn-success&&NAME:submit";
+
+  ImacroRun(code);
+  ImacroWaitTime(3);
+
+}
+function Sent_Login(par_login_id, par_cmd_play_pattern_id, par_browser_id, user_id){
+
+  GoURL(url_sent_login);
+
+  var login_id = par_login_id;
+  var login_browser_id = par_browser_id;
+  var login_user_id = user_id;
+
+  var login_cmd_play_user_pattern_id = par_cmd_play_pattern_id;
+
+  login_id = ImacroSTR(login_id);
+  login_browser_id = ImacroSTR(login_browser_id);
+  login_user_id = ImacroSTR(login_user_id);
+  login_cmd_play_user_pattern_id = ImacroSTR(login_cmd_play_user_pattern_id);
+
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:login_id CONTENT=" + login_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:login_cmd_play_user_pattern_id CONTENT=" + login_cmd_play_user_pattern_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:login_browser_id CONTENT=" + login_browser_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:login_user_id CONTENT=" + login_user_id;
+  code += "\n" + "TAG POS=1 TYPE=BUTTON FORM=NAME:form ATTR=NAME:submit";
+  ImacroRun(code);
+
+  ImacroWaitTime(3);
+
+}
+function Sent_RegisterRound(par_bet_round_object, par_rud_id, par_login_id, par_room_id, par_web_site_name, par_date_time_round_exp){
+
+  GoURL(url_sent_register_round);
+
+  var bet_round_object = new BetRound();
+  bet_round_object = par_bet_round_object;
+
+  var ber_round_title_name = bet_round_object.getRoundTitleName();
+
+  var reg_rud_id = par_rud_id;
+  var reg_rud_login_id = par_login_id;
+  var reg_rud_cmd_room_id = par_room_id;
+
+  var reg_rud_web_site_name = par_web_site_name;
+  var reg_rud_title_name = ber_round_title_name;
+  var reg_rud_number = bet_round_object.getBetRoundNumber();
+
+  var reg_rud_time_transaction_exp = bet_round_object.getBetRoundDateTimeExp();
+  reg_rud_time_transaction_exp = CovDateToSTRSql(reg_rud_time_transaction_exp);
+
+  var reg_rud_time_round_exp = CovDateToSTRSql(par_date_time_round_exp);
+
+  reg_rud_id = ImacroSTR(reg_rud_id);
+  reg_rud_login_id = ImacroSTR(reg_rud_login_id);
+  reg_rud_cmd_room_id = ImacroSTR(reg_rud_cmd_room_id);
+
+  reg_rud_web_site_name = ImacroSTR(reg_rud_web_site_name);
+  reg_rud_title_name = ImacroSTR(reg_rud_title_name);
+  reg_rud_number = ImacroSTR(reg_rud_number);
+
+  reg_rud_time_transaction_exp = ImacroSTR(reg_rud_time_transaction_exp);
+  reg_rud_time_round_exp = ImacroSTR(reg_rud_time_round_exp);
+
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_id CONTENT=" + reg_rud_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_login_id CONTENT=" + reg_rud_login_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_cmd_room_id CONTENT=" + reg_rud_cmd_room_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_web_site_name CONTENT=" + reg_rud_web_site_name;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_title_name CONTENT=" + reg_rud_title_name;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_number CONTENT=" + reg_rud_number;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_time_transaction_exp CONTENT=" + reg_rud_time_transaction_exp;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:reg_rud_time_round_exp CONTENT=" + reg_rud_time_round_exp;
+  code += "\n" + "TAG POS=1 TYPE=BUTTON FORM=NAME:form ATTR=NAME:submit";
+
+  ImacroRun(code);
+  ImacroWaitTime(3);
+
+
+}
+function Sent_Event(par_log_event_group_event_id, par_log_event_login_id, par_log_event_key, par_log_event_title, par_log_event_content){
+
+  GoURL(url_sent_event);
+
+  var log_event_id = GenerateKeyCode();
+  var log_event_group_event_id = par_log_event_group_event_id;
+  var log_event_login_id = par_log_event_login_id;
+
+  var log_event_key = par_log_event_key;
+  var log_event_title = par_log_event_title;
+  var log_event_content = par_log_event_content;
+
+  log_event_id = ImacroSTR(log_event_id);
+  log_event_group_event_id = ImacroSTR(log_event_group_event_id);
+
+  log_event_key = ImacroSTR(log_event_key);
+  log_event_login_id = ImacroSTR(log_event_login_id);
+  log_event_title = ImacroSTR(log_event_title);
+
+  log_event_content = ImacroSTR(log_event_content);
+
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_event_id CONTENT=" + log_event_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_event_group_event_id CONTENT=" + log_event_group_event_id;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_event_login_id CONTENT=" + log_event_login_id;
+
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_event_key CONTENT=" + log_event_key;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_event_title CONTENT=" + log_event_title;
+  code += "\n" + "TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form ATTR=NAME:log_event_content CONTENT=" + log_event_content;
+
+  code += "\n" + "TAG POS=1 TYPE=BUTTON FORM=NAME:form ATTR=NAME:submit";
+  ImacroRun(code);
+
+  ImacroWaitTime(3);
+}
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function MF_BetTransaction_ClickRootNumber(index_panel, par_str_button_name, par_total_number_array){
+
+  var sev_str_button_name = par_str_button_name;
+
+  local_trs_button_click_log.push("/n" + "--- Transaction Click Root Number ---" + "/n");
+
+  for(var index = 0; index < par_total_number_array.length; index++){
+    var number = par_total_number_array[index];
+
+    /**
+    var col_bet_tab_length = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0]
+    .getElementsByClassName("col-12 col-xl-4")[index_panel]
+    .getElementsByClassName("quick-item")[1];
+    **/
+    /********************************************************/
+    var bet_sev_button_group_name = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0]
+    .getElementsByClassName("col-12 col-xl-4")[index_panel].innerText;
+    /********************************************************/
+    bet_sev_button_group_name = CutEmpty(bet_sev_button_group_name);
+
+    var str_button_length = bet_sev_button_group_name.search(sev_str_button_name);
+    var is_button_root_name_match = (str_button_length >= 0);
+    //Log
+    local_trs_button_click_log.push("[Comp/Bet/Sev]: " + is_button_root_name_match + " / " + bet_sev_button_group_name + " / " + sev_str_button_name + "/n");
+
+    if(is_button_root_name_match){
+      //is button matching
+
+      //get text
+      var bet_button_number = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0]
+      .getElementsByClassName("col-12 col-xl-4")[index_panel]
+      .getElementsByClassName("quick-item")[number].innerText;;
+
+      bet_button_number = CutEmpty(bet_button_number);
+      var sev_button_number = number;
+      var is_matching_number_root = (bet_button_number == sev_button_number);
+
+      if(is_matching_number_root){
+        window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0]
+        .getElementsByClassName("col-12 col-xl-4")[index_panel]
+        .getElementsByClassName("quick-item")[number].click();
+      }
+
+      local_trs_button_click_log.push("Click Root Number [Comp/Bet/Sev]: " + is_matching_number_root + "/" + bet_button_number + "/" + sev_button_number + "/n");
+
+    }//End check number matching
+
+/**
+        }else{
+          Sent_Event(EVENT_TRANSACTION_ROOT_NUMBER_NOT_FOUND, local_login_id, "BTRNF01", "", "");
+          alert("Transaction root number not found");
+        }//End check root top menu button length
+**/
+
+  }//loop total number
+
+}
+
+function MF_BetTransaction_ClickNumber(par_number_array){
+
+  var number_array = [];
+  number_array = par_number_array;
+  local_trs_button_click_log.push("/n" + "--- Transaction Click Number ---" + "/n");
+
+  var col_length = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top").length;
+  var is_have_col = (col_length > 0);
+
+  if(is_have_col){
+
+    var col_length = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0].getElementsByClassName("bet-number").length;
+    var is_have_col = (col_length > 0);
+
+    if(is_have_col){
+
+      var col_length = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0]
+      .getElementsByClassName("bet-number")[0].getElementsByClassName("number-item").length;
+
+      var is_have_col = (col_length == 100);
+
+      if(is_have_col){
+
+        for(var index = 0; index < number_array.length; index++){
+
+          var sev_number_button = number_array[index];
+          sev_number_button = parseInt(sev_number_button);
+
+          /***************************************************/
+
+          var bet_number_button = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0]
+          .getElementsByClassName("bet-number")[0].getElementsByClassName("number-item")[sev_number_button].innerText;
+
+          /***************************************************/
+
+          bet_number_button = CutEmpty(bet_number_button);
+          bet_number_button = Number(bet_number_button);
+
+          var is_number_matching = (bet_number_button == sev_number_button);
+
+          /***************************************************/
+
+          if(is_number_matching){
+
+            window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0]
+            .getElementsByClassName("bet-number")[0].getElementsByClassName("number-item")[sev_number_button].click();
+
+            local_trs_button_click_log.push("[Comp/Bet/Sev]: " + is_number_matching + " / " + bet_number_button + " / " + sev_number_button + "/n");
+
+          }//End check number matching
+
+        }//End loop total number array
+
+    }else{
+      alert("Bet Number not match")
+    }
+
+  }else{
+    alert("Bet Number panel fail 1");
+  }//End check col
+
+}else{
+  alert("Bet Number panel fail 2");
+}//End check col
+
+
+}
+function MF_BetTransaction_ClickOptionTwo(par_trs_object){
+
+  var collection_length = window.document.getElementsByClassName("app__lotto-slug slug-classic").length;
+  var is_have_trs_tab_option = (collection_length > 0);
+  local_trs_button_click_log.push("/n" + "--- Transaction Click Two Option ---" + "/n");
+
+  var trs_object = new SevCmdTransaction();
+  trs_object = par_trs_object;
+
+  if(is_have_trs_tab_option){
+
+    var trs_option_two_up = trs_object.getCMDTrsOptionUp();
+    var trs_option_two_down = trs_object.getCMDTrsOptionDown();
+    var trs_option_two_revers = trs_object.getCMDTrsOptionRevers();
+
+    var trs_option_two_up_name = trs_object.getCMDTrsOptionUpName();
+    var trs_option_two_down_name = trs_object.getCMDTrsOptionDownName();
+    var trs_option_two_revers_name = trs_object.getCMDTrsOptionReversName();
+
+    var collection_length = window.document.getElementsByClassName("app__lotto-slug slug-classic")[0].getElementsByClassName("slug-item").length;
+
+    /********************************/
+    if(collection_length >= 3){
+
+      var is_opt_two_up = (trs_option_two_up == sev_fix_mode_enable);
+
+      if(is_opt_two_up){
+        //click button option two up
+        var str_bet_two_up = window.document.getElementsByClassName("app__lotto-slug slug-classic")[0].getElementsByClassName("slug-item")[3].innerText;
+
+        str_bet_two_up = CutEmpty(str_bet_two_up);
+        var index_of_word = str_bet_two_up.search(trs_option_two_up_name);
+        var is_button_complete = (index_of_word >= 0);
+
+        //Log
+        local_trs_button_click_log.push("[Comp/Bet/Sev]: "+ is_button_complete + " / " + str_bet_two_up + " / " + trs_option_two_up_name + "/n");
+        if(is_button_complete){
+          window.document.getElementsByClassName("app__lotto-slug slug-classic")[0].getElementsByClassName("slug-item")[3].click();
+        }else{
+          Sent_Event(EVENT_TRANSACTION_OPTION_UP_NOT_FOUND, local_login_id, "BTUF01", "", "");
+          alert("Transaction Two up button failed");
+        }
+      }//End check option two up
+    }else{
+      Sent_Event(EVENT_TRANSACTION_OPTION_UP_NOT_FOUND, local_login_id, "BTUF02", "", "");
+      alert("Transaction Two up button failed");
+    }
+    /********************************/
+    if(collection_length >= 4){
+      if(trs_option_two_down == sev_fix_mode_enable){
+        //click button option two up
+        var str_bet_two_down = window.document.getElementsByClassName("app__lotto-slug slug-classic")[0].getElementsByClassName("slug-item")[4].innerText;
+
+        str_bet_two_down = CutEmpty(str_bet_two_down);
+        var index_of_word = str_bet_two_down.search(trs_option_two_down_name);
+        var is_button_complete = (index_of_word >= 0);
+
+        //Log
+        local_trs_button_click_log.push("[Comp/Bet/Sev]: "+ is_button_complete + " / " + str_bet_two_down + " / " + trs_option_two_down_name + "/n");
+        if(is_button_complete){
+          window.document.getElementsByClassName("app__lotto-slug slug-classic")[0].getElementsByClassName("slug-item")[4].click();
+        }else{
+          Sent_Event(EVENT_TRANSACTION_OPTION_DOWN_NOT_FOUND, local_login_id, "BTDF01", "", "");
+          alert("transaction option two down fail");
+        }
+      }//End check option two up
+    }else{
+      Sent_Event(EVENT_TRANSACTION_OPTION_DOWN_NOT_FOUND, local_login_id, "BTDF02", "", "");
+      alert("transaction option two down fail");
+    }
+    /********************************/
+    if(collection_length >= 5){
+      if(trs_option_two_revers == sev_fix_mode_enable){
+        //click button option two up
+        var str_bet_two_revers = window.document.getElementsByClassName("app__lotto-slug slug-classic")[0].getElementsByClassName("slug-item")[5].innerText;
+
+        str_bet_two_revers = CutEmpty(str_bet_two_revers);
+
+        var index_of_word = str_bet_two_revers.search(trs_option_two_revers_name);
+        var is_button_complete = (index_of_word >= 0);
+
+        //Log
+        local_trs_button_click_log.push("[Comp/Bet/Sev]: "+ is_button_complete + " / " + str_bet_two_revers + " / " + trs_option_two_revers_name + "/n");
+        if(is_button_complete){
+          window.document.getElementsByClassName("app__lotto-slug slug-classic")[0].getElementsByClassName("slug-item")[5].click();
+        }else{
+          Sent_Event(EVENT_TRANSACTION_OPTION_REVERS_NOT_FOUND, local_login_id, "BTRF01", "", "");
+          alert("transaction option two revers fail");
+        }
+
+      }//End check option two up
+    }else{
+      Sent_Event(EVENT_TRANSACTION_OPTION_REVERS_NOT_FOUND, local_login_id, "BTRF02", "", "");
+      alert("transaction option two revers fail");
+    }
+    /********************************/
+
+  }else{
+    alert("Don't have tab transaction");
+  }
+
+}
+function MF_BetTransaction_ModeCalender(par_trs_object){
+
+  var trs_object = new SevCmdTransaction();
+  trs_object = par_trs_object;
+
+  var is_root_front = trs_object.getCMDTrsRootFront();
+  var is_root_back = trs_object.getCMDTrsRootBack();
+
+  var total_number_array = [];
+  var str_sev_root_number = trs_object.getCMDTrsRootNumber();
+  total_number_array = CutSTRToArray(str_sev_root_number, ",");
+
+  var str_opt_front_name = trs_object.getCMDTrsRootFrontName();
+  var str_opt_back_name = trs_object.getCMDTrsRootBackName();
+
+  var col_length = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top").length;
+
+  if(col_length >= 1){
+
+    var col_length = window.document.getElementsByClassName("app__lotto-board board-classic mt-4 pt-4 border-top")[0].getElementsByClassName("col-12 col-xl-4").length;
+
+    if(col_length >= 3){
+
+        if(is_root_front == sev_fix_mode_enable){
+          var panel_root_front = 1;
+          MF_BetTransaction_ClickRootNumber(panel_root_front, str_opt_front_name, total_number_array);
+        }//Check sev root front enable
+
+        if(is_root_back == sev_fix_mode_enable){
+          var panel_root_back = 2;
+          MF_BetTransaction_ClickRootNumber(panel_root_back, str_opt_back_name, total_number_array);
+        }//Check sev root front enable
+
+
+    }else{
+      Sent_Event(EVENT_TRANSACTION_NUMBER_NOT_FOUND, local_login_id, "BTNNF02", "", "");
+      alert("Transaction get number not found");
+
+    }
+
+  }else{
+    Sent_Event(EVENT_TRANSACTION_NUMBER_NOT_FOUND, local_login_id, "BTNNF03", "", "");
+    alert("Transaction get number not found");
+  }
+
+}
+
+function MF_BetTransaction_ClickKeyNumber(){
+  var code = "";
+  code += "\n" + "TAG POS=2 TYPE=DIV ATTR=CLASS:label";
+  ImacroRun(code);
+}
+
+function MF_BetTransaction_ModeIndividual(){
+
+  MF_BetTransactionSelectOptions(global_sev_cmd_transaction);
+
+  var str_trs_number_buy = global_sev_cmd_transaction.getCMDTrsTotalNumberBuy();
+  sev_trs_total_number_array = CutSTRToArray(str_trs_number_buy, ",");
+  ImacroWaitTime(3);
+  MF_BetTransaction_ClickNumber(sev_trs_total_number_array);
+  ImacroWaitTime(3);
+
+  MF_BetTransaction_ClickKeyNumber();
+  ImacroRun(code);
+
+  ImacroWaitTime(3);
+
+  var total_number_array = [];
+  total_number_array = MF_BetTransaction_GetTotalNumberBuy();
+
+  var str_trs_bet_number = CovArrayToSTR(total_number_array);
+  var str_trs_sev_number = CovArrayToSTR(sev_trs_total_number_array);
+
+  var number_matching = (str_trs_bet_number == str_trs_sev_number);
+
+  if(!number_matching){
+    Sent_Event(EVENT_TRANSACTION_NUMBER_MATCHING_FAIL, local_login_id, "BTBDM01", "", "");
+    alert("Fail Number don't match");
+  }
+
+}
+function MF_BetTransaction_ModePull(){
+
+  local_trs_button_click_log.push("/n" + "--- Transaction Pull ---" + "/n");
+
+  var code = "TAG POS=2 TYPE=DIV ATTR=CLASS:label EXTRACT=TXT";
+  code += "\n" + "TAG POS=2 TYPE=DIV ATTR=CLASS:label";
+
+  ImacroRun(code);
+  local_trs_button_click_log.push("Button Pull Text: " + iimGetExtract(1) + "/n");
+  ImacroWaitTime(1);
+
+  var code = "TAG POS=1 TYPE=BUTTON ATTR=CLASS:btn<SP>btn-sm<SP>btn-default EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=CLASS:btn<SP>btn-sm<SP>btn-default";
+  ImacroRun(code);
+
+  local_trs_button_click_log.push("Tab Pull Text: " + iimGetExtract(1) + "/n");
+  ImacroWaitTime(1);
+
+}
+
+function MF_BetPull_GetLengthTotalRowNumber(){
+
+  var total_row = 0;
+
+  var col = window.document.getElementsByClassName("stake-list").length;
+
+  if(col > 0){
+
+    total_row = window.document.getElementsByClassName("stake-list")[0]
+    .getElementsByClassName("stake-item").length;
+
+  }else{
+    Sent_Event(EVENT_TRANSACTION_LIST_NOT_FOUND, local_login_id, "BTLNF11", "");
+    alert("Transaction list enough 1");
+  }
+
+  return total_row;
+
+}
+
+function MF_BetTransaction_GetTotalNumberBuy(){
+
+  local_trs_button_click_log.push("/n" + "--- Transaction Bet Get Total Number ---" + "/n");
+  var total_number_array = [];
+  var str = "";
+
+  var row_number_buy = MF_BetPull_GetLengthTotalRowNumber();
+
+  for(var index = 0; index < row_number_buy; index++){
+
+    var trs_number = window.document.getElementsByClassName("stake-list")[0]
+    .getElementsByClassName("stake-item")[index]
+    .getElementsByClassName("stake-number")[0].innerText;
+
+    local_trs_button_click_log.push((index+1) + ") " + "Number Text: " + trs_number + "/n");
+
+    var number = CovStrToNumberOnly(trs_number);
+    total_number_array.push(number);
+    str += number + ",";
+
+  }
+
+
+  local_trs_button_click_log.push("/n");
+
+  return total_number_array;
+
+}
+
+function TransactionTotalNumberBuyMatching(par_transaction_object){
+
+  var trs_object = par_transaction_object;
+  var str_trs_number_buy = trs_object.getCMDTrsTotalNumberBuy();
+  var sev_trs_total_number_array = [];
+  sev_trs_total_number_array = CutSTRToArray(str_trs_number_buy, ",");
+
+  ImacroWaitTime(3);
+
+  var bet_trs_total_number_buy = [];
+  bet_trs_total_number_buy = MF_BetTransaction_GetTotalNumberBuy();
+  var trs_total_number_matching = MF_BetTransaction_CheckNumberMatching(sev_trs_total_number_array, bet_trs_total_number_buy);
+
+  return trs_total_number_matching;
+
+}
+
+function MF_BetGetCredit(){
+  var code = "TAG POS=1 TYPE=SPAN ATTR=CLASS:credit<SP>font-numeral<SP>mr-1 EXTRACT=TXT";
+  ImacroRun(code);
+  var credit_current = iimGetExtract(1);
+  credit_current = CutEmpty(credit_current);
+  return credit_current;
+}
+
+function MF_BetShoot_ClickButtonRandomNumber(){
+  var col_length = window.document.getElementsByClassName("shoot-form").length;
+  if(col_length){
+    var col_length = window.document.getElementsByClassName("shoot-form")[0].getElementsByClassName("pad-item random").length;
+    if(col_length){
+      window.document.getElementsByClassName("shoot-form")[0].getElementsByClassName("pad-item random")[0].click();
+    }
+  }
+}
+function MF_BetShoot_ClickTabShoot(){
+
+    ImacroWaitTime(10);
+    var col_length = window.document.getElementsByClassName("app__back").length;
+    var is_col_length = (col_length > 0);
+
+    if(is_col_length){
+
+      var col_length = window.document.getElementsByClassName("app__back")[0].getElementsByClassName("btn btn-sm btn-secondary").length;
+      var is_col_length = (col_length == 2);
+
+      if(is_col_length){
+        window.document.getElementsByClassName("app__back")[0].getElementsByClassName("btn btn-sm btn-secondary")[0].click();
+      }
+
+
+    }else{
+      alert("no menu tab shoot 2");
+    }
+
+
+}
+function MF_SelectRound(par_index_card_select){
+
+  var index_card_select_complete = par_index_card_select;
+  var fix_round_sec = global_fix_seconds_remaning_round_card;
+  var fix_round_ms = fix_round_sec * 1000;
+  var is_play;
+
+  var bet_round = new BetRound();
+
+  var index = 0;
+  var index_card_complete = 0;
+
+  while(true){
+
+    index++;
+
+    bet_round = MF_BetRound_SelectCard(index);
+
+    var round_date_time_exp = new Date();
+    round_date_time_exp = bet_round.getBetRoundDateTimeExp();
+
+
+    var date_time_current = new Date();
+    var ms_round_distance = (round_date_time_exp - date_time_current);
+    var is_round_time_can_play = (ms_round_distance >= fix_round_ms);
+
+    var sev_cmd_trs_object = new SevCmdTransaction();
+    sev_cmd_trs_object = global_sev_cmd_transaction;
+    var sev_cmd_trs_enable_group_id = sev_cmd_trs_object.getCMDTrsEnableModeGroupID();
+
+    var is_sev_cmd_trs_enable = (sev_cmd_trs_enable_group_id == sev_fix_mode_enable);
+    var is_round_have_time = (ms_round_distance > 0);
+
+    var is_speed_play = (!is_sev_cmd_trs_enable) && (is_round_have_time);
+
+    is_play = (is_round_time_can_play || is_speed_play);
+
+
+    if(is_play){
+      //Card complete
+      index_card_complete++;
+
+      if(index_card_complete == index_card_select_complete){
+
+        var index = bet_round.getBetRoundIndexCard();
+
+        //Click card to inside round
+        var code = "TAG POS=" + (index+1) + " TYPE=DIV ATTR=CLASS:lotto-body";
+        ImacroRun(code);
+        ImacroWaitTime(5);
+
+        var url = window.location.href;
+        bet_round.setBetURLRound(url);
+        ImacroWaitTime(1);
+
+        var col_length = window.document.getElementsByClassName("header-title text-primary").length;
+
+          if(col_length > 0){
+
+            var round_title_name = window.document.getElementsByClassName("header-title text-primary")[0].innerText;
+            var round_title_number = window.document.getElementsByClassName("badge badge__light-primary ml-2")[0].innerText;
+
+            var round_number = CovStrToNumberOnly(round_title_number);
+            round_number = Number(round_number);
+
+            bet_round.setRoundTitleName(round_title_name + " " + round_title_number);
+            bet_round.setBetRoundNumber(round_number);
+
+            local_bet_round_object = bet_round;
+
+            break;
+
+          }
+
+
+      }//End check is round select complete
+
+    }//End check is round complete
+
+  }//End loop for select card round
+
+  if(!is_play){
+    Sent_Event(EVENT_ROUND_SELECT_FAIL, local_login_id, "BRSF01", "", "");
+    alert("Round can play don't have time");
+  }
+
+  bet_round.setIsSelectRound(is_play);
+
+
+  return bet_round;
+
+}
+function MF_BetTransactionSelectOptions(par_trs_object){
+
+  var trs_object = par_trs_object;
+
+  var opt_two_up = trs_object.getCMDTrsOptionUp();
+  var opt_two_down = trs_object.getCMDTrsOptionDown();
+  var opt_two_revers = trs_object.getCMDTrsOptionRevers();
+
+  MF_BetTransaction_ClickOptionTwo(trs_object);
+
+}
+
+function MF_BetTransaction_CheckNumberMatching(par_sev_trs_total_number_buy, par_bet_trs_total_number_buy){
+
+  var sev_trs_total_number_array = [];
+  var sev_trs_total_number_array = [];
+  sev_trs_total_number_array = par_sev_trs_total_number_buy;
+  sev_trs_total_number_array = par_bet_trs_total_number_buy;
+
+  var is_matching_number = true;
+  //Loop total number bet
+  for(var index_bet = 0; index_bet < sev_trs_total_number_array.length; index_bet++){
+    var is_number_bet_current_complete = false;
+    var number_bet = sev_trs_total_number_array[index_bet];
+    //Loop total number sev
+    for(var index_sev = 0; index_sev < sev_trs_total_number_array.length; index_sev++){
+      var number_sev = sev_trs_total_number_array[index_sev];
+      if(number_bet == number_sev){
+        is_number_bet_current_complete = true;
+      }
+    }//End loop sev
+
+    if(!is_number_bet_current_complete){
+      is_matching_number = false;
+      //alert("Number transaction don't match: " + number_bet);
+      break;
+    }
+  }//End loop sev
+
+  return is_matching_number;
+}
+function MF_BetTransaction_ClickConfirmBuy(){
+
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=TYPE:button&&CLASS:btn<SP>w-100<SP>btn-primary EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=TYPE:button&&CLASS:btn<SP>w-100<SP>btn-primary";
+  code += "\n" + "WAIT SECONDS=1";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=TYPE:button&&CLASS:btn<SP>w-100<SP>btn-primary EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=TYPE:button&&CLASS:btn<SP>w-100<SP>btn-primary";
+  code += "\n" + "WAIT SECONDS=10";
+  ImacroRun(code);
+  var button_name_one = iimGetExtract(1);
+  button_name_one = CutEmpty(button_name_one);
+  var button_name_two = iimGetExtract(2);
+  button_name_two = CutEmpty(button_name_two);
+
+  local_trs_button_click_log.push("Transaction Confirm Button Text: " + button_name_one + "/n");
+  local_trs_button_click_log.push("Transaction Confirm Button Text: " + button_name_two + "/n");
+
+}
+function MF_BetTransaction_GetListDetail(){
+  //get transaction list detail ofter buy
+
+  var code = "";
+  code += "\n" + "TAG POS=4 TYPE=H5 ATTR=* EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=SPAN ATTR=CLASS:text-muted EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=H2 ATTR=CLASS:mb-0 EXTRACT=TXT";
+  ImacroRun(code);
+
+  //ยี่กี 264 รอบที่ 156
+  //เลขที่รายการ 567404668
+  //100
+
+  var trs_list_round_title = iimGetExtract(1);
+  var trs_list_id = iimGetExtract(2);
+  var trs_list_credit = iimGetExtract(3);
+
+  var str_start = (trs_list_round_title.length - 5);
+  var str_stop = (trs_list_round_title.length);
+  var trs_list_round_number = CutSTRFull(trs_list_round_title, str_start, str_stop);
+
+  trs_list_id = CovStrToNumberOnly(trs_list_id);
+  trs_list_credit = CovStrToNumberOnly(trs_list_credit);
+  trs_list_round_number = CovStrToNumberOnly(trs_list_round_number);
+
+
+  var bet_trs_list_object = new BetTransactionList();
+
+
+  bet_trs_list_object.setTrsListRoundTitleName(trs_list_round_title);
+  bet_trs_list_object.setTrsListRoundNumber(trs_list_round_number);
+  bet_trs_list_object.setTrsListID(trs_list_id);
+  bet_trs_list_object.setTrsListCredit(trs_list_credit);
+
+  return bet_trs_list_object;
+
+}
+
+function getLastArray(par_array){
+
+  var last_array = "";
+  var total_array = par_array;
+
+  var is_have_array = (total_array.length) > 0;
+
+  if(is_have_array){
+    last_array = total_array[0];
+  }else{
+    Sent_Event(EVENT_SHOOT_NOT_FOUND, local_login_id, "SSNF01", "", "");
+    alert("[Fail Time Shoot] No time shoot");
+  }
+
+  return last_array;
+}
+
+function MF_BetTransaction_ClickKeyPrice(){
+  var code = "TAG POS=1 TYPE=BUTTON ATTR=CLASS:btn<SP>btn-orange EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=CLASS:btn<SP>btn-orange";
+  ImacroRun(code);
+  local_trs_button_click_log.push("Transaction Price Button Text: " + iimGetExtract(1) + "/n");
+  ImacroWaitTime(1);
+}
+function MF_BetTransaction_KeySet(par_trs_number_set){
+
+  var code = "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV:nth-of-type(2)>DIV>DIV>MAIN>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(3)>DIV>DIV>INPUT BUTTON=0";
+  ImacroRun(code);
+  ImacroWaitTime(1);
+
+  var is_have_data = (par_trs_number_set != "") && (par_trs_number_set != null);
+
+  if(is_have_data){
+
+    var str_number = par_trs_number_set.toString();
+
+    for(var index = 0; index < str_number.length; index++){
+
+      var number_current = str_number[index];
+
+      var code = "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV:nth-of-type(2)>DIV>DIV>MAIN>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(3)>DIV>DIV>INPUT CHAR=" + number_current
+
+      ImacroRun(code);
+      ImacroWaitTime(1);
+    }//End loop key number
+
+  }//End check is have data
+
+  var code = "EVENT TYPE=KEYUP SELECTOR=HTML>BODY>DIV:nth-of-type(2)>DIV>DIV>MAIN>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV:nth-of-type(3)>DIV>DIV>INPUT KEY=38";
+  ImacroRun(code);
+  ImacroWaitTime(1);
+
+}
+function MF_BetTransaction_CheckPrice(par_sev_trs_price){
+
+  var code = "TAG POS=2 TYPE=DIV ATTR=CLASS:card-body<SP>p-2<SP>text-center EXTRACT=TXT";
+  ImacroRun(code);
+  var bet_web_trs_price = iimGetExtract(1);
+  local_trs_button_click_log.push("Transaction Check Price: " + bet_web_trs_price + "/n");
+  bet_web_trs_price = CovStrToNumberOnly(bet_web_trs_price);
+
+  var is_price_matching = (par_sev_trs_price == bet_web_trs_price);
+
+
+  return is_price_matching;
+
+}
+function MF_BetTransaction_CheckListMatching(par_trs_list_id){
+
+var transaction_list_id = par_trs_list_id;
+var transaction_list_status = false;
+ImacroWaitTime(3);
+
+var html_collection_length = window.document.getElementsByClassName("font-sub-title color-blue").length;
+
+if(html_collection_length > 0){
+
+  for(var index = 0; index < html_collection_length; index++){
+
+    var bet_trs_list_id = window.document.getElementsByClassName("font-sub-title color-blue")[index].innerText;
+
+    transaction_list_id = CutEmpty(transaction_list_id);
+    bet_trs_list_id = CutEmpty(bet_trs_list_id);
+
+    if(transaction_list_id == bet_trs_list_id){
+      transaction_list_status = true;
+      break;
+
+    }//End check bet trs list id matching trs list buy id
+  }//End loop
+}else{
+  //Don't have transaction list
+  Sent_Event(EVENT_TRANSACTION_LIST_NOT_FOUND, local_login_id, "BTLNF01", "");
+  alert("Transaction list enough 2");
+}
+
+return transaction_list_status;
+
+}
+function MF_BetTransaction_Cancel(par_trs_id){
+
+  GoURL(url_bet_trs_list);
+  ImacroWaitTime(10);
+  //get card have trs success
+  var index_card_trs_success_array = [];
+  //get transaction list count
+  var card_size = window.document.getElementsByClassName("card card__stake").length;
+
+  for(var index = 0; index < card_size; index++){
+    //Loop total card
+    var trs_buy_completet_length = window.document.getElementsByClassName("card card__stake")[index]
+    .getElementsByClassName("badge-lg accept badge badge__light-info").length;
+
+    var is_have_trs_buy_complete = (trs_buy_completet_length > 0);
+
+    if(is_have_trs_buy_complete){
+      index_card_trs_success_array.push(index);
+    }
+
+  }//End loop
+
+  for(var index = 0; index < index_card_trs_success_array.length; index++){
+    //cacel total transaction
+    var index_trs_for_cancel = index_card_trs_success_array[index];
+
+    window.document.getElementsByClassName("card card__stake")[index_trs_for_cancel].click();
+    ImacroWaitTime(5);
+
+    var code = "";
+    code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=CLASS:btn<SP>btn-rounded<SP>btn-danger<SP>w-100";
+    code += "\n" + "WAIT SECONDS=3";
+    code += "\n" + "TAG POS=1 TYPE=BUTTON ATTR=CLASS:dg-btn<SP>dg-btn--ok<SP>dg-pull-right";
+    ImacroRun(code);
+
+    ImacroWaitTime(6);
+
+  }//End loop cancel total transaction
+
+
+
+  var url_delete = delete_trs + "?trs_id=" + par_trs_id;
+  GoURL(url_delete);
+  ImacroWaitTime(5);
+
+  GoURL(url_bet_trs_list);
+  var credit_transaction_after = MF_BetGetCredit();
+  Sent_Credit(local_login_id, GROUP_CREDIT_AFTER_TRS, "", credit_transaction_after);
+
+}
+
+function MF_BetTransactionListBuy(par_transaction_object, par_date_time_limit_buy){
+
+  var date_time_limit_buy = new Date(par_date_time_limit_buy);
+
+  var sev_trs_object = new SevCmdTransaction();
+  sev_trs_object = par_transaction_object;
+  var sev_web_trs_number_set = sev_trs_object.getCMDTrsNumberSet();
+  var sev_web_trs_number_price = sev_trs_object.getCMDTrsNumberPrice();
+
+  /***************************************************************/
+  var bet_trs_list_object = new BetTransactionList();
+  //sev_web_trs_number_set = "2";
+  //sev_web_trs_number_price = "100";
+
+  //Key trasnaction number set
+  MF_BetTransaction_KeySet(sev_web_trs_number_set);
+
+  /***************************************************************/
+  var is_price_matching = MF_BetTransaction_CheckPrice(sev_web_trs_number_price);
+  var is_trs_list_id_matching = false;
+
+  var date_time_current = new Date();
+  var time_have_buy_distance_ms = (date_time_limit_buy - date_time_current);
+  var is_have_time_buy = (time_have_buy_distance_ms > 0);
+  var is_have_trs_buy = (is_price_matching && is_have_time_buy);
+
+  if(is_have_trs_buy){
+    //Transaction price matching
+    MF_BetTransaction_ClickConfirmBuy();
+    bet_trs_list_object = MF_BetTransaction_GetListDetail();
+    var trs_list_id = bet_trs_list_object.getTrsListID();
+
+    is_trs_list_id_matching = true;
+    //is_trs_list_id_matching = MF_BetTransaction_CheckListMatching(trs_list_id);
+/**
+    if(!is_trs_list_id_matching){
+      Sent_Event(trs_list_not_found, local_login_id, "BTLF02", "", "");
+      alert("Trs list matching: " + is_trs_list_id_matching);
+    }
+**/
+  }else{
+
+    if(is_have_time_buy){
+      Sent_Event(EVENT_TRANSACTION_TIME_BUY_FAIL, local_login_id, "BTTF01", "", "");
+      alert("Transaction Price don't matching");
+    }
+    if(is_price_matching){
+      Sent_Event(EVENT_TRANSACTION_PRICE_MATCHING_FAIL, local_login_id, "BTPF01", "", "");
+      alert("Transaction Price don't matching");
+    }
+
+  }
+
+  bet_trs_list_object.setTrsListsStatus(is_trs_list_id_matching);
+
+  return bet_trs_list_object;
+
+}
+function MF_BetRound_SelectCard(par_index){
+
+  var bet_round = new BetRound();
+  var index_card = par_index;
+  var new_time = new Time();
+
+  var card_round_length = window.document.getElementsByClassName("card card__lotto").length;
+  var is_have_card_round = (card_round_length > 0);
+
+  if(is_have_card_round){
+    //Have card round
+
+  var tine_countdown_lenght = window.document.getElementsByClassName("card card__lotto")[index_card].getElementsByClassName("label countdown text-primary").length;
+  var is_have_time_countdown = (tine_countdown_lenght > 0);
+
+  if(is_have_time_countdown){
+    //Have countdown time
+
+
+    var str_title = window.document.getElementsByClassName("card card__lotto")[index_card].getElementsByClassName("label")[0].innerText;
+    var str_time_close = window.document.getElementsByClassName("card card__lotto")[index_card].getElementsByClassName("label")[1].innerText;
+    var str_time_countdown = window.document.getElementsByClassName("card card__lotto")[index_card].getElementsByClassName("label countdown text-primary")[0].innerText;
+
+    str_time_countdown = CovStrToNumberOnly(str_time_countdown);
+
+    var hh = str_time_countdown[0];
+    hh += str_time_countdown[1];
+    hh = Number(hh);
+
+    var mm = str_time_countdown[2];
+    mm += str_time_countdown[3];
+    mm = Number(mm);
+
+    var ss = str_time_countdown[4];
+    ss += str_time_countdown[5];
+    ss = Number(ss);
+
+    var hh_to_mm = (hh * 60);
+    var hh_to_mm_to_sec = (hh_to_mm * 60);
+    var mm_to_sec = (mm * 60);
+    var total_sec = (hh_to_mm_to_sec + mm_to_sec + ss);
+
+    /************************/
+    //get time round exp
+    var date_time_current = new Date();
+    var date_time_round_exp = new Date();
+
+    var str_time_close = CovStrToNumberOnly(str_time_close);
+
+    var hh_exp = str_time_close[0];
+    hh_exp += str_time_close[1];
+    hh_exp = Number(hh_exp);
+
+    var mm_exp = str_time_close[2];
+    mm_exp += str_time_close[3];
+    mm_exp = Number(mm_exp);
+    date_time_round_exp.setHours(hh_exp);
+    date_time_round_exp.setMinutes(mm_exp);
+
+    date_time_current.setSeconds(0);
+    date_time_current.setMilliseconds(0);
+
+    date_time_round_exp.setSeconds(0);
+    date_time_round_exp.setMilliseconds(0);
+
+    var distance = (date_time_round_exp - date_time_current);
+    var is_this_day = (distance > 0);
+
+    if(!is_this_day){
+      date_time_round_exp.setDate(date_time_round_exp.getDate() + 1);
+    }
+
+    /************************/
+
+    new_time.setHH(hh);
+    new_time.setMM(mm);
+    new_time.setSS(ss);
+
+    var date_time_now = new Date();
+    date_time_now.setSeconds(date_time_now.getSeconds() + total_sec);
+    date_time_now.setMilliseconds(0);
+
+    bet_round.setBetRoundDateTimeCountdown(new_time);
+    bet_round.setBetRoundDateTimeExp(date_time_round_exp);
+    bet_round.setBetRoundIndexCard(index_card);
+
+  }//End check is have countdown time
+
+}//End check is have card round
+
+
+
+  return bet_round;
+
+}
+
+function CloseAlertBox(){
+  while(true){
+    var dialog_length = window.document.getElementsByClassName("dg-btn dg-btn--ok dg-pull-right").length;
+    if(dialog_length > 0){
+      window.document.getElementsByClassName("dg-btn dg-btn--ok dg-pull-right")[0].click();
+      ImacroWaitTime(2);
+    }else{
+      break;
+    }
+  }
+}
+function MF_BetLogin_CheckUser(){
+
+  var code = "'get bet username'";
+  code += "\n" + "URL GOTO=https://chudjenbet.com/member/profile";
+  ImacroRun(code);
+  ImacroWaitTime(10);
+
+  CloseAlertBox();
+
+  var user_menu_length = window.document.getElementsByClassName("navmenu-user").length;
+
+  var is_username_match = false;
+  var is_have_menu = (user_menu_length >= 2);
+
+  if(is_have_menu){
+
+    var user_label_length = window.document.getElementsByClassName("navmenu-user")[1].getElementsByClassName("mb-0").length;
+    var is_username_label = (user_label_length > 0);
+
+    if(is_username_label){
+
+    var web_bet_username = window.document.getElementsByClassName("navmenu-user")[1].getElementsByClassName("mb-0")[0].innerText
+    web_bet_username = CutEmpty(web_bet_username);
+    web_bet_username = web_bet_username.toLowerCase();
+
+    var my_username = global_username.getUserName();
+    my_username = my_username.toLowerCase();
+
+    var is_page_load_username = (web_bet_username != "#EANF#");
+    is_username_match = (web_bet_username == my_username);
+  }//End check username label
+
+}//End check user menu
+
+  return is_username_match;
+}
+function MF_LoginKey(par_username_object, par_psw, par_field_object){
+
+  var url_login = url_bet_login;
+  var code = "URL GOTO=" + url_login;
+  ImacroRun(code);
+  ImacroWaitTime(2);
+  //MF_BetLogin_Remove();
+
+  var username_object = new SevCmdUsername();
+  username_object = par_username_object;
+  var username = username_object.getUserName();
+
+  var password = par_psw;
+
+  var field_array = [];
+  field_array = par_field_object
+
+  var code_macro_user_click = field_array["username_click"];
+  var code_macro_user_input = field_array["username_input"];
+  var code_macro_user_remove = field_array["username_remove"];
+
+  var code_macro_pass_click = field_array["password_click"];
+  var code_macro_pass_input = field_array["password_input"];
+  var code_macro_pass_remove = field_array["password_remove"];
+
+  MF_BetKey_Test(code_macro_user_click, code_macro_user_input, username);
+  MF_BetKey_Test(code_macro_pass_click, code_macro_pass_input, password);
+
+  var code = "'Click Login button'";
+  code += "\n" + "TAG POS=1 TYPE=BUTTON  ATTR=TYPE:submit&&CLASS:btn<SP>btn-rounded<SP>btn-lg<SP>btn-primary<SP>w-100";
+  ImacroRun(code);
+  ImacroWaitTime(5);
+
+}
+
+function MF_BetLogin_Remove(){
+
+  //Remove username
+  var code = "'click username input to delete'";
+  code += "\n" + "WAIT SECONDS=1";
+  code += "\n" + "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV>INPUT BUTTON=0";
+  ImacroRun(code);
+  for(var index = 0; index < 20; index++){
+    var code = "";
+    code += "\n" + "EVENTS TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV>INPUT KEYS=[8]";
+    ImacroRun(code);
+  }
+
+  //Remove password
+  var code = "'click password input to delete'";
+  code += "\n" + "WAIT SECONDS=1";
+  code += "\n" + "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV:nth-of-type(2)>INPUT BUTTON=0";
+  ImacroRun(code);
+
+
+  for(var index = 0; index < 20; index++){
+    var code = "";
+    code += "\n" + "EVENTS TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV:nth-of-type(2)>INPUT KEYS=[8]";
+    ImacroRun(code);
+  }
+
+}
+/**
+function MF_BetLogin_KeyUsername(par_username, par_psw){
+
+/**
+  var code = "'click username input'";
+  code += "\n" + "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV>INPUT BUTTON=0";
+  ImacroRun(code);
+  for(var index = 0 ; index < par_username.length; index++){
+    var char_current_username = par_username[index];
+    var code = "";
+    code += "\n" + "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV>INPUT CHAR=" + char_current_username;
+    ImacroRun(code);
+  }
+
+  var code = "'click password input'";
+  code += "\n" + "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV:nth-of-type(2)>INPUT BUTTON=0";
+  ImacroRun(code);
+  for(var index = 0 ; index < par_psw.length; index++){
+    var char_current_psw = par_psw[index];
+    var code = "";
+    code += "\n" + "SET !ENCRYPTION NO";
+    code += "\n" + "EVENT TYPE=KEYPRESS SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>DIV:nth-of-type(2)>INPUT CHAR=" + char_current_psw;
+    ImacroRun(code);
+  }
+
+  ImacroWaitTime(3);
+
+  var code = "";
+  code += "\n" + "EVENT TYPE=CLICK SELECTOR=HTML>BODY>DIV>DIV>DIV>DIV>DIV:nth-of-type(3)>SPAN>FORM>BUTTON BUTTON=0";
+  ImacroRun(code);
+
+  ImacroWaitTime(3);
+
+
+}
+**/
+
+function MF_ShotButton(time_shot){
+
+     var milliseconds_delay = (time_shot - new Date());
+
+     var is_have_time_shoot_forward = (milliseconds_delay > 0);
+
+    // if(is_have_time_shoot_forward){
+
+       window.setTimeout(function(){
+         window.document.getElementsByClassName("shoot-form")[0].getElementsByClassName("pad-item add")[0].click();
+       }, (time_shot - new Date()));
+
+       var wait_delay = milliseconds_delay / 1000;
+       wait_delay = wait_delay + 5;
+
+       var str_time_shot = CovDateToSTRSql(time_shot);
+
+       str_time_shot = str_time_shot + ":" + time_shot.getMilliseconds();
+       str_time_shot = ImacroSTR(str_time_shot);
+
+       var imacro_code = "WAIT SECONDS=" + wait_delay;
+       imacro_code += "\n" +  "'Shoot: " + str_time_shot + "'";
+       ImacroRun(imacro_code);
+/**
+     }else{
+       alert("Time shoot out");
+     }//End check is have time for shoot
+**/
+   }
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function SevLoad(){
+  global_sev_play_program = SevGetPlayProgram();
+  var is_play_program = global_sev_play_program.IsPlayProgram();
+  global_paw_array = SevGetPsw();
+  global_sev_cmd_room_object = SevGetRoom();
+  global_sev_cmd_random_shoot_object = SevGetRandomShoot();
+  global_shoot = SevGetShoot();
+  global_username = SevGetUsername();
+  global_sev_cmd_transaction = SevTransaction();
+  global_sev_cmd_time_stop = SevGetTimeStop();
+  global_sev_cmd_browser = SevGetBrowser();
+}
+
+function SevGetBrowser(){
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:browser_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:browser_group_property_id EXTRACT=TXT";
+  ImacroRun(code);
+
+  var browser_id = iimGetExtract(1);
+  var browser_group_property_id = iimGetExtract(2);
+
+  var sev_cmd_browser_object = new SevCmdBrowser();
+  sev_cmd_browser_object.setSevCMDBrowserID(browser_id);
+  sev_cmd_browser_object.setSevCMDBrowserGroupEnableID(browser_group_property_id);
+
+  return sev_cmd_browser_object;
+}
+
+function SevGetTimeStop(){
+
+  var code = "";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:time_disable_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:time_disable_group_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:time_start_hh EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:time_start_mn EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:time_stop_hh EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:time_stop_mn EXTRACT=TXT";
+  ImacroRun(code);
+
+  var time_disable_id = iimGetExtract(1);
+  var time_disable_group_id = iimGetExtract(2);
+  var time_start_hh = iimGetExtract(3);
+  var time_start_mn = iimGetExtract(4);
+  var time_stop_hh = iimGetExtract(5);
+  var time_stop_mn = iimGetExtract(6);
+
+  var sev_cmd_set_time_stop = new SevCmdSetTimeStop();
+
+  sev_cmd_set_time_stop.setCMDTimeStopID(time_disable_id);
+  sev_cmd_set_time_stop.setCMDTimeStopGroupEnableID(time_disable_group_id);
+
+  sev_cmd_set_time_stop.setCMDTimeStopStartHH(time_start_hh);
+  sev_cmd_set_time_stop.setCMDTimeStopStartMN(time_start_mn);
+
+  sev_cmd_set_time_stop.setCMDTimeStopStopHH(time_stop_hh);
+  sev_cmd_set_time_stop.setCMDTimeStopStopMN(time_stop_mn);
+
+  return sev_cmd_set_time_stop;
+
+}
+
+
+function SevGetPsw(){
+
+  var col_length = window.document.getElementsByClassName("psw_content").length;
+  var psw = [];
+
+  if(col_length > 0){
+    //get total password
+    for(var index = 0; index < col_length; index++){
+      var new_psw = window.document.getElementsByClassName("psw_content")[index].innerText;
+      psw.push(new_psw);
+    }//End loop for get total psw
+
+  }else{
+    //don't have load password or no password
+    Sent_Event(EVENT_PASSWORD_NOT_FOUND, local_login_id, "SPWF01", "", "");
+    alert("Password not found");
+  }//End check is hava page load psw
+
+  return psw;
+
+}
+function SevGetPlayProgram(){
+  var code = "";
+  code += "\n" + "URL GOTO= " + url_server + "/information/load_informations.php?browser_id=" + global_browser_id;
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_play_program_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_play_program_group_id EXTRACT=TXT";
+  ImacroRun(code);
+
+  var cmd_play_program_id = iimGetExtract(1);
+  var cmd_play_program_group_id = iimGetExtract(2);
+
+  var new_object = new CMDPlayProgram();
+  new_object.setCMDPlayProgramID(cmd_play_program_id);
+  new_object.setCMDPlayProgramGroupID(cmd_play_program_group_id);
+  return new_object;
+
+}
+function SevGetRoom(){
+  var code = "TAG POS=1 TYPE=A ATTR=ID:cmd_room_id EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_group_id EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_id EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_round_shoot_sec EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_round_left_sec EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_round_friend_ship_sec EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_round_trs_buy_sec EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_page_save_ranking EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_ranking_winner EXTRACT=TXT";
+  code += "\n"  + "TAG POS=1 TYPE=A ATTR=ID:cmd_room_config_log_url EXTRACT=TXT";
+
+  ImacroRun(code);
+  var cmd_room_id = iimGetExtract(1);
+  var cmd_room_group_id = iimGetExtract(2);
+  var cmd_room_config_log_id = iimGetExtract(3);
+  var cmd_room_config_log_round_shoot_sec = iimGetExtract(4);
+  var cmd_room_config_log_round_left_sec = iimGetExtract(5);
+  var cmd_room_config_log_round_friend_ship_sec = iimGetExtract(6);
+  var cmd_room_config_log_round_trs_buy_sec = iimGetExtract(7);
+  var cmd_room_config_log_page_save_ranking = iimGetExtract(8);
+  var cmd_room_config_log_ranking_winner = iimGetExtract(9);
+  var cmd_room_config_log_url = iimGetExtract(10);
+
+  cmd_room_config_log_round_shoot_sec = CovStrToNumberOnly(cmd_room_config_log_round_shoot_sec);
+  cmd_room_config_log_round_left_sec = CovStrToNumberOnly(cmd_room_config_log_round_left_sec);
+  cmd_room_config_log_round_friend_ship_sec = CovStrToNumberOnly(cmd_room_config_log_round_friend_ship_sec);
+  cmd_room_config_log_round_trs_buy_sec = CovStrToNumberOnly(cmd_room_config_log_round_trs_buy_sec);
+
+  var is_room = (cmd_room_id != "") && (cmd_room_id != null);
+  var is_group_room = (cmd_room_group_id != "") && (cmd_room_group_id != null);
+  var load_complete = (is_room) && (is_group_room)
+
+  if(!load_complete){
+    alert("Load room from server fail");
+  }
+
+  var cmd_room = new CMDPlayRoom();
+  cmd_room.setCMDRoomID(cmd_room_id);
+  cmd_room.setCMDGroupRoomID(cmd_room_group_id);
+
+  cmd_room.setCMDGroupRoomLastShootTime(cmd_room_config_log_round_shoot_sec);
+  cmd_room.setCMDGroupRoomLastRoundTime(cmd_room_config_log_round_left_sec);
+
+  cmd_room.setCMDGroupRoomLastFriendShipTime(cmd_room_config_log_round_friend_ship_sec);
+  cmd_room.setCMDGroupRoomLastTrsBuyTime(cmd_room_config_log_round_trs_buy_sec);
+
+  cmd_room.setCMDGroupRoomPageSaveRanking(cmd_room_config_log_page_save_ranking);
+  cmd_room.setCMDGroupRoomRankingWinner(cmd_room_config_log_ranking_winner);
+  cmd_room.setCMDGroupRoomURL(cmd_room_config_log_url);
+
+  return cmd_room;
+}
+
+function SevGetRandomShoot(){
+  var code = "TAG POS=1 TYPE=A ATTR=ID:cmd_shoot_random_enable_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_shoot_random_enable_group_property_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_shoot_random_set_time_seconds_distance EXTRACT=TXT";
+  ImacroRun(code);
+
+  var cmd_shoot_random_enable_id = iimGetExtract(1);
+  var cmd_shoot_random_enable_group_property_id = iimGetExtract(2);
+  var cmd_shoot_random_set_time_seconds_distance = iimGetExtract(3);
+
+  var random_shoot = new SevCmdRandomShoot();
+  random_shoot.setSevCmdRandomShootID(cmd_shoot_random_enable_id);
+  random_shoot.setCMDGroupRandomShootID(cmd_shoot_random_enable_group_property_id);
+  random_shoot.setSevCmdRandomShootTimeMS(cmd_shoot_random_set_time_seconds_distance);
+
+  return random_shoot;
+
+}
+function SevGetShoot(){
+
+  var code = "TAG POS=1 TYPE=A ATTR=ID:cmd_shoot_mode_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:mode_public_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:mode_private_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_shoot_mode_group_shoot_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:one_sec EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:one_ms EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:two_sec EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:two_ms EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:three_sec EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:three_ms EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:reduce_group EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:reduce_time_ms EXTRACT=TXT";
+  ImacroRun(code);
+
+  var cmd_shoot_mode_id = iimGetExtract(1);
+  var mode_public_id = iimGetExtract(2);
+  var mode_private_id = iimGetExtract(3);
+  var cmd_shoot_mode_group_shoot_id = iimGetExtract(4);
+  var one_sec = iimGetExtract(5);
+  var one_ms = iimGetExtract(6);
+  var two_sec = iimGetExtract(7);
+  var two_ms = iimGetExtract(8);
+  var three_sec = iimGetExtract(9);
+  var three_ms = iimGetExtract(10);
+  var reduce_group = iimGetExtract(11);
+  var reduce_time_ms = iimGetExtract(12);
+
+  var shoot_one = new Time();
+  shoot_one.setSS(one_sec);
+  shoot_one.setMS(one_ms);
+
+  var shoot_two = new Time();
+  shoot_two.setSS(two_sec);
+  shoot_two.setMS(two_ms);
+
+  var shoot_three = new Time();
+  shoot_three.setSS(three_sec);
+  shoot_three.setMS(three_ms);
+
+  var cmd_shoot = new SevCMDShoot();
+  cmd_shoot.setSevCMDShootModeID(cmd_shoot_mode_id);
+  cmd_shoot.setCMDPublicID(mode_public_id);
+  cmd_shoot.setCMDPrivateID(mode_private_id);
+  cmd_shoot.setCMDReduceGroupID(reduce_group);
+  cmd_shoot.setCMDReduceTime(reduce_time_ms);
+  cmd_shoot.setTimeOne(shoot_one);
+  cmd_shoot.setTimeTwo(shoot_two);
+  cmd_shoot.setTimeThree(shoot_three);
+
+  return cmd_shoot;
+}
+function SevGetUsername(){
+
+  var code = "TAG POS=1 TYPE=A ATTR=ID:cmd_play_user_pattern_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_play_user_pattern_group_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_friendship_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_friendship_pro_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:user_browser_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:user_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:user_name EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:user_friend_browser_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:user_friend_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:user_friend_name EXTRACT=TXT";
+  ImacroRun(code);
+
+  var cmd_play_user_pattern_id = iimGetExtract(1);
+  var cmd_play_user_pattern_group_id = iimGetExtract(2);
+  var cmd_friendship_id = iimGetExtract(3);
+  var cmd_friendship_pro_id = iimGetExtract(4);
+  var user_browser_id = iimGetExtract(5);
+  var user_id = iimGetExtract(6);
+  var user_name = iimGetExtract(7);
+  var user_friend_browser_id = iimGetExtract(8);
+  var user_friend_id = iimGetExtract(9);
+  var user_friend_name = iimGetExtract(10);
+
+  var cmd_username = new SevCmdUsername();
+  cmd_username.setPlayPatternID(cmd_play_user_pattern_id);
+  cmd_username.setPlayPatternGroupID(cmd_play_user_pattern_group_id);
+  cmd_username.setFriendUserID(cmd_friendship_id);
+  cmd_username.setFriendshipID(cmd_friendship_id);
+  cmd_username.setFriendshipGroupID(cmd_friendship_pro_id);
+  cmd_username.setUserBrowserID(user_browser_id);
+  cmd_username.setUserID(user_id);
+  cmd_username.setUserName(user_name);
+  cmd_username.setFriendBrowserID(user_friend_browser_id);
+  cmd_username.setFriendUserID(user_friend_id);
+  cmd_username.setFriendUserName(user_friend_name);
+
+  return cmd_username;
+
+}
+function SevTransaction(){
+
+  var code = "'Server load transaction'";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_trs_enable_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_trs_enable_pro_id EXTRACT=TXT";
+
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_trs_mode_pull_rcp_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_trs_mode_ind_rcp_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_trs_mode_cld_rcp_id EXTRACT=TXT";
+
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_trs_mode_id EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:cmd_trs_group_mode_id EXTRACT=TXT";
+
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_set EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_price EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_number EXTRACT=TXT";
+
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_option_up EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_option_down EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_option_revers EXTRACT=TXT";
+
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_root_number EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_root_option_front EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_root_option_back EXTRACT=TXT";
+
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_option_up_name EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_option_down_name EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_option_revers_name EXTRACT=TXT";
+
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_root_option_front_name EXTRACT=TXT";
+  code += "\n" + "TAG POS=1 TYPE=A ATTR=ID:trs_root_option_back_name EXTRACT=TXT";
+
+
+  ImacroRun(code);
+
+  var cmd_trs_enable_id = iimGetExtract(1);
+  var cmd_trs_enable_pro_id = iimGetExtract(2);
+
+  var cmd_trs_mode_pull_rcp_id = iimGetExtract(3);
+  var cmd_trs_mode_ind_rcp_id = iimGetExtract(4);
+  var cmd_trs_mode_cld_rcp_id = iimGetExtract(5);
+
+  var cmd_trs_mode_id = iimGetExtract(6);
+  var cmd_trs_group_mode_id = iimGetExtract(7);
+
+  var trs_set = iimGetExtract(8);
+  var trs_price = iimGetExtract(9);
+  var trs_number = iimGetExtract(10);
+
+  var trs_option_up = iimGetExtract(11);
+  var trs_option_down = iimGetExtract(12);
+  var trs_option_revers = iimGetExtract(13);
+
+  var trs_root_number = iimGetExtract(14);
+  var trs_root_option_front = iimGetExtract(15);
+  var trs_root_option_back = iimGetExtract(16);
+
+  var trs_option_up_name = iimGetExtract(17);
+  var trs_option_down_name = iimGetExtract(18);
+  var trs_option_revers_name = iimGetExtract(19);
+
+  var trs_root_option_front_name = iimGetExtract(20);
+  var trs_root_option_back_name = iimGetExtract(21);
+
+
+  /**********************************/
+
+  var cmd_trs = new SevCmdTransaction();
+
+  cmd_trs.setCMDTrsEnableID(cmd_trs_enable_id);
+  cmd_trs.setCMDTrsEnableModeGroupID(cmd_trs_enable_pro_id);
+
+  cmd_trs.setCMDTrsModePullID(cmd_trs_mode_pull_rcp_id);
+  cmd_trs.setCMDTrsModeBuyIndividualID(cmd_trs_mode_ind_rcp_id);
+  cmd_trs.setCMDTrsModeBuyCalenderID(cmd_trs_mode_cld_rcp_id);
+
+  cmd_trs.setCMDTrsModeID(cmd_trs_mode_id);
+  cmd_trs.setCMDTrsModeGroupID(cmd_trs_group_mode_id);
+
+  cmd_trs.setCMDTrsNumberSet(trs_set);
+  cmd_trs.setCMDTrsNumberPrice(trs_price);
+  cmd_trs.setCMDTrsTotalNumberBuy(trs_number);
+
+  cmd_trs.setCMDTrsOptionUp(trs_option_up);
+  cmd_trs.setCMDTrsOptionDown(trs_option_down);
+  cmd_trs.setCMDTrsOptionRevers(trs_option_revers);
+
+  cmd_trs.setCMDTrsRootFront(trs_root_option_front);
+  cmd_trs.setCMDTrsRootBack(trs_root_option_back);
+  cmd_trs.setCMDTrsRootNumber(trs_root_number);
+
+  cmd_trs.setCMDTrsOptionUpName(trs_option_up_name);
+  cmd_trs.setCMDTrsOptionDownName(trs_option_down_name);
+  cmd_trs.setCMDTrsOptionReversName(trs_option_revers_name);
+
+  cmd_trs.setCMDTrsRootFrontName(trs_root_option_front_name);
+  cmd_trs.setCMDTrsRootBackName(trs_root_option_back_name);
+
+  return cmd_trs;
+
+}
+function Check_FriendShip(par_random_shoot_enable, par_sev_cmd_trs_object, par_username_object, par_bet_round_object, par_sev_cmd_room_object, par_friend_ship_limit_date_time){
+
+  var is_friend_have_transaction = false;
+  var is_random_shoot_enable = par_random_shoot_enable;
+
+  var username_object = new SevCmdUsername();
+  username_object = par_username_object;
+  var sev_cmd_friend_ship_group_id = username_object.getFriendshipGroupID();
+
+  var sev_cmd_room_object = new CMDPlayRoom();
+  sev_cmd_room_object = par_sev_cmd_room_object;
+  var play_room_id = sev_cmd_room_object.getCMDRoomID();
+
+
+  var bet_round_object = new BetRound();
+  bet_round_object = par_bet_round_object;
+  var round_date_time_exp = bet_round_object.getBetRoundDateTimeExp();
+  var bet_url_round = bet_round_object.getBetURLRound();
+
+  var sev_trs_object = new SevCmdTransaction();
+  sev_trs_object = par_sev_cmd_trs_object;
+  var sev_trs_enable_mode_group_id = sev_trs_object.getCMDTrsEnableModeGroupID();
+  var is_trs_enable = (sev_trs_enable_mode_group_id == sev_fix_mode_enable);
+
+  var is_friend_ship_enable = (sev_cmd_friend_ship_group_id == sev_fix_mode_enable);
+  var is_check_frined_ship = (!is_random_shoot_enable) && (is_trs_enable) && (is_friend_ship_enable);
+
+  var friend_ship_limit_date_time = new Date(par_friend_ship_limit_date_time);
+
+  if(is_check_frined_ship){
+    //Check transaction
+    GoURL(bet_url_round);
+    ImacroWaitTime(5);
+    MF_BetShoot_ClickTabShoot();
+    WaitBeforeCheckFriendShip(friend_ship_limit_date_time);
+    is_friend_have_transaction = FriendShipProcess(username_object, bet_round_object, play_room_id);
+  }else{
+    //Don't check transaction
+    is_friend_have_transaction = true;
+  }
+
+
+  var str_status = "Check friend ship: " + is_check_frined_ship;
+  str_status += "\n" + "- Sev Random Shoot Enable:" + is_random_shoot_enable;
+  str_status += "\n" + "- Sev Trs Enable:" + is_trs_enable;
+  str_status += "\n" + "- Sev Friend Ship Enable:" + is_friend_ship_enable;
+  str_status += "\n" + CovDateToSTRSql(new Date());
+  global_status_transactions += "\n" + str_status;
+
+  //alert(str_status);
+
+  return is_friend_have_transaction;
+
+}
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function GoURL(url){
+     var imacro_code = "CODE:";
+     imacro_code += "URL GOTO=" + url;
+     iimPlay(imacro_code);
+   }
+
+function ImacroSTR(par_str){
+
+  var str_new = "";
+  var str_current = par_str;
+
+  if(str_current != null){
+    str_current = str_current.toString();
+    str_new = str_current.replace(/ /g, "<SP>");
+  }
+
+/**
+  var str_imacro = "";
+
+  var str_current = str;
+
+  var is_have_data = (str_current != null);
+
+  if(is_have_data){
+    str_current = str_current.toString();
+
+    for(var index = 0; index < str_current.length; index++){
+
+      var char_current = str_current[index];
+
+      if(str[index] == " "){
+        str_imacro += "<SP>";
+      }else{
+        str_imacro += char_current;
+      }
+
+    }//end loop
+
+  }//End check is data not null
+**/
+
+  return str_new;
+
+}
+
+function ImacroWaitTimeSTR(time,str){
+  var macro = "WAIT SECONDS=" + time;
+  macro += "\n" + "'" + str + "'";
+  ImacroRun(macro);
+}
+function ImacroRun(par_code){
+  var imacro_code = "CODE:";
+  imacro_code += "TAB T=1" + "\n";
+  imacro_code += "TAB CLOSEALLOTHERS" + "\n";
+  imacro_code += "\n" + par_code;
+  iimPlay(imacro_code);
+}
+function ImacroWaitTime(time){
+
+     var macro = "WAIT SECONDS=" + time;
+     ImacroRun(macro);
+
+}
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function GenerateRandomShoot(par_date_time_shoot, par_distance_sec){
+
+  var date_time_final_target = new Date(par_date_time_shoot);
+  var distance_before_real_shoot_sec = 10;
+  date_time_final_target.setSeconds(date_time_final_target.getSeconds() - distance_before_real_shoot_sec);
+  var time_distance_sec = par_distance_sec;
+  var time_distance_ms = (time_distance_sec * 1000);
+  //date_time_final_target.setSeconds(date_time_final_target.getSeconds() - time_distance_sec);
+
+  var total_date_time_array = [];
+
+  var date_time_next_target = new Date();
+
+  while(true){
+    time_distance_sec = parseInt(time_distance_sec);
+    date_time_next_target.setSeconds(date_time_next_target.getSeconds() + time_distance_sec);
+
+    var time_distance = (date_time_final_target - date_time_next_target);
+    var is_have_distance = (time_distance >= time_distance_ms);
+
+    if(is_have_distance){
+      total_date_time_array.push(new Date(date_time_next_target));
+    }else{
+      break;
+    }
+
+  }//End loop
+
+  return total_date_time_array;
+
+}
+function GenerateKeyCode(){
+
+  var generateKeyCode = "";
+  var count = 25;
+
+  var keyCode = "0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+
+  while(true){
+    var numberKey = Math.floor(Math.random() * keyCode.length);
+    var newKeyCode = keyCode.slice(numberKey,numberKey+1);
+
+    generateKeyCode += newKeyCode;
+
+    if(generateKeyCode.length == count){
+      break;
+    }
+  }//loop key
+
+  return generateKeyCode;
+}
+function PswRevert(par_psw){
+  var pattern = 5;
+
+  var max_length = par_psw.length;
+  par_psw = CutSTRFull(par_psw, pattern, max_length);
+
+  var max_length = par_psw.length;
+  var stop_length = max_length - pattern;
+
+  par_psw = CutSTRFull(par_psw, 0, stop_length);
+
+
+  var psw_complete = "";
+  var count = 0;
+
+  for(var index = 0; index < par_psw.length; index++){
+    count++;
+
+    var char_current = par_psw[index];
+
+    var is_add = (count <= 1);
+
+    if(is_add){
+
+      var cov_number = parseInt(char_current);
+      var is_complete_cov_number = !isNaN(parseInt(cov_number));
+
+      //Conver char to number complete
+      if(is_complete_cov_number){
+        char_current = cov_number;
+        if(char_current == 0){
+          char_current = 9;
+        }else{
+          char_current = char_current - 1;
+        }
+      }//End check convert to number complete
+
+      psw_complete += char_current;
+
+    }else{
+      count = 0;
+    }
+
+  }
+
+  /***************************************/
+
+
+  return psw_complete;
+}
+function RandomNumberSize(par_size){
+  var total_number = "";
+  for(var index = 0; index < par_size; index++){
+    var number = Math.floor(Math.random() * 10);
+    total_number += number;
+  }
+  return total_number;
+
+}
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function CovStrToNumberOnly(par_str){
+  var str_new = par_str.replace(/\D/g,"");
+  return str_new;
+}
+
+function CovStrToArray(par_str, par_str_symbol){
+
+  var total_str = par_str;
+  var str_symbol = par_str_symbol;
+
+  var str_new_array = [];
+
+  for(var index = 0; index < total_str.length; index++){
+    var char_current = total_str[index];
+
+    if(char_current != str_symbol){
+      str_new_array.push(char_current);
+    }
+
+  }//End loop
+
+return str_new_array;
+
+}
+
+function CovArrayToSTR(par_array){
+
+  var str = "";
+
+  for(var index = 0; index < par_array.length; index++){
+
+    var str_current = par_array[index];
+
+    var is_end = (index == (par_array.length-1));
+
+    if(!is_end){
+      str_current += ",";
+    }
+
+    str += str_current;
+
+  }//End loop
+
+  return str;
+
+}
+function CovUsernameToCensor(par_username, par_symbol, par_index_start, par_index_stop){
+
+  var str_new = "";
+  var str = par_username;
+  var str_symbol = par_symbol;
+
+  var char_index_start = par_index_start;
+  var char_index_stop = par_index_stop;
+
+  for(var index = 0; index < str.length; index++){
+    var char_index = (index+1);
+    var char_current = str[index];
+
+    var is_index_area = (char_index >= char_index_start) && (char_index <= char_index_stop);
+
+    if(is_index_area){
+      //is area convert character
+      str_new += str_symbol;
+    }else{
+      //is not area convert character
+      if(index < char_index_stop){
+        str_new += char_current;
+      }else{
+        break;
+      }
+    }
+
+  }//End loop
+
+  str_new += str[str.length-2];
+  str_new += str[str.length-1];
+
+  return str_new;
+
+}
+function CovZeroNumber(value){
+
+       var number = parseInt(value);
+       if(number <= 9 ){
+         number = "0" + number.toString();
+       }
+
+       return number;
+     }
+function CovDateToSTRSql(date_now){
+       var str = CovDateToSTRSqlBase(date_now, " ");
+       return str;
+     }
+function CovDateToSTRSqlBase(date_now, par_symbol){
+
+          var date = new Date(date_now);
+          var month = date.getMonth();
+          month = parseInt(month);
+          month = month + 1;
+          var day = CovZeroNumber(date.getDate());
+          month = CovZeroNumber(month);
+          var hours = CovZeroNumber(date.getHours());
+          var minut = CovZeroNumber(date.getMinutes());
+          var second = CovZeroNumber(date.getSeconds());
+
+          var date = date.getFullYear() + "-" +
+          month + "-" +
+          day +
+          par_symbol +
+          hours + ":" +
+          minut + ":" +
+          second;
+
+        return date;
+
+        }
+function CovThailottoDateTime(par_str_thailotto_date_time_th){
+
+          //var date = "เวลาส่ง : 30/12/2565 19:00:22";
+          var date = par_str_thailotto_date_time_th;
+          var is_have_data = (date.length > 0);
+          var date_time = new Date();
+
+          if(is_have_data){
+            //is have data date time
+            var date_time_th = CutSTRFull(date, 10, date.length);
+
+            var day = date_time_th[0] + date_time_th[1];
+            var month = date_time_th[3] + date_time_th[4];
+            var year = date_time_th[6] + date_time_th[7] + date_time_th[8] + date_time_th[9];
+
+            var hour = date_time_th[11] + date_time_th[12];
+            var minute = date_time_th[14] + date_time_th[15];
+            var second = date_time_th[17] + date_time_th[18];
+
+            year = year - 543;
+            month = month - 1;
+
+            date_time.setFullYear(year);
+            date_time.setMonth(month);
+            date_time.setDate(day);
+
+            date_time.setHours(hour);
+            date_time.setMinutes(minute);
+            date_time.setSeconds(second);
+            date_time.setMilliseconds(0);
+
+          }else{
+            //Don't have data
+
+          }//End check is have parameter have data
+
+          return date_time;
+
+        }
+/***************************************/
+/*
+*
+*
+*
+*
+*
+*/
+/***************************************/
+function CutSTRToArray(str,slice_symbol){
+
+   //slice symbol is cut string
+   //return array string set
+
+   var dataArray = [];
+   var newDateSet = "";
+
+   if(str == null){
+     str = "";
+   }
+
+   for(var index = 0; index < str.length; index++){
+     //loop all string index
+     var str_index = str[index];
+     if(str_index == slice_symbol){
+       dataArray.push(newDateSet);
+       newDateSet = "";
+     }else{
+       newDateSet = newDateSet + str_index;
+     }//end check
+
+   }//end loop
+
+   if(newDateSet != ""){
+     //is end loop add string result
+     dataArray.push(newDateSet);
+     newDateSet = "";
+   }
+
+   return dataArray;
+ }
+function CutSTRFull(str_date_myshot, index_start, index_start_end){
+   var is_have_data = (str_date_myshot != null) && (str_date_myshot.length > 0);
+   if(is_have_data){
+     var str_date = str_date_myshot.slice(index_start, index_start_end);
+   }else{
+     str_date = null;
+   }
+
+   return str_date;
+ }
+ function CutEmpty(par_string){
+
+   if(par_string != null){
+      var str_new = par_string;
+
+      if(par_string.length > 0){
+        str_new = str_new.replace(/\s/g,"");
+      }
+    }
+
+    return str_new;
+  }
+function CutTime(par_date_time){
+
+   MF_BetShoot_ClickTabShoot();
+   ImacroWaitTime(1);
+   MF_BetShoot_ClickButtonRandomNumber();
+
+   var last_distance_ms = 10000;
+   var last_distance_sec = last_distance_ms / 1000;
+
+   var date_time_limit = new Date(par_date_time);
+
+   var date_time_limit_guard = new Date(par_date_time);
+   date_time_limit_guard.setSeconds(date_time_limit_guard.getSeconds() - last_distance_sec);
+
+   while(true){
+     var date_now = new Date();
+     var remaining_ms = (date_time_limit_guard - date_now);
+     var is_waiting = (remaining_ms >= last_distance_ms);
+
+     if(is_waiting){
+       var log = "'Waiting to last action'";
+       log += "\n" + "'Guard: " + CovDateToSTRSql(date_time_limit_guard) + ":" + date_time_limit_guard.getMilliseconds() + "'";
+       log += "\n" + "'Final: " + CovDateToSTRSql(date_time_limit) + ":" + date_time_limit.getMilliseconds() + "'";
+       ImacroWaitTimeSTR((last_distance_sec), log);
+     }else{
+       break;
+     }
+   }//End loop
+ }
+ /***************************************/
+ /*
+ *
+ *
+ *
+ *
+ *
+ */
+ /***************************************/
+function getReduceTimeNextMs(par_cmd_shoot_object, par_last_reduce_ms, par_status){
+   //Reduce shoot time
+   var cmd_shoot_object = new SevCMDShoot();
+   cmd_shoot_object = par_cmd_shoot_object;
+
+   var sev_reduce_ms = cmd_shoot_object.getCMDReduceTime();
+   var mode_reduce_id = cmd_shoot_object.getCMDReduceGroupID();
+
+   var last_reduce_ms = par_last_reduce_ms;
+
+   var last_status = par_status;
+
+   /******************************************/
+   var reduce_disable = (mode_reduce_id == sev_fix_mode_reduce_disable);
+   var reduce_mode_plus_and_minus = (mode_reduce_id == sev_fix_mode_reduce_plus_and_minus);
+   var reduce_mode_plus = (mode_reduce_id == sev_fix_mode_reduce_plus);
+   var reduce_mode_minus = (mode_reduce_id == sev_fix_mode_reduce_minus);
+
+
+   if(reduce_disable){
+     //Mode disable
+
+   }else if(reduce_mode_plus_and_minus){
+     //Mode +/-
+     if(last_status){
+       last_reduce_ms = last_reduce_ms + sev_reduce_ms;
+     }else{
+       last_reduce_ms = last_reduce_ms - sev_reduce_ms;
+     }
+
+   }else if(reduce_mode_plus){
+     //Mode +
+
+     if(last_status){
+       last_reduce_ms = last_reduce_ms + sev_reduce_ms;
+     }else{
+       last_reduce_ms = last_reduce_ms;
+     }
+
+   }else if(reduce_mode_minus){
+     //Mode -
+     if(last_status){
+       last_reduce_ms = last_reduce_ms;
+     }else{
+       last_reduce_ms = last_reduce_ms - sev_reduce_ms;
+     }
+
+
+   }
+   /******************************************/
+
+   return last_reduce_ms;
+ }
+
+function getReduceTimeMS(par_cmd_shoot_object, local_shoot_last_date_time, par_user_name_censor, par_button_shoot_distance){
+   /*************************************/
+
+   var my_username = par_user_name_censor;
+   var cmd_shoot_object = new SevCMDShoot();
+   cmd_shoot_object = par_cmd_shoot_object;
+   var sev_reduce_time_ms = cmd_shoot_object.getCMDReduceTime();
+
+   var last_shoot_ms = local_shoot_last_date_time.getMilliseconds();
+
+   var total_reduce_ms_complete_array = [];
+   var total_reduce_ms_failed_array = [];
+
+
+   var reduce_group_id = cmd_shoot_object.getCMDReduceGroupID();
+
+   var str = "";
+   str += "\n" + "Group Reduce Mode ID: " + reduce_group_id;
+
+   var last_reduce_date_time = null;
+   var last_status = false;
+
+   while(true){
+     //loop shoot reduce
+     /************************************************/
+     var is_have_reduce_ms_complete = (total_reduce_ms_complete_array.length > 0);
+     var last_reduce_ms = 0;
+     if(is_have_reduce_ms_complete){
+       var index_last = (total_reduce_ms_complete_array.length - 1);
+       last_reduce_ms = total_reduce_ms_complete_array[index_last];
+     }else{
+       last_reduce_ms = last_shoot_ms;
+     }
+
+     /************************************************/
+     var reduce_ms_new = getReduceTimeNextMs(cmd_shoot_object, last_reduce_ms, last_status);
+     /************************************************/
+     var date_time_predict = new Date();
+
+     if(last_reduce_date_time != null){
+       //is next reduce
+       date_time_predict = new Date(last_reduce_date_time);
+       date_time_predict.setSeconds(date_time_predict.getSeconds() + (par_button_shoot_distance + 3));
+       date_time_predict.setMilliseconds(reduce_ms_new);
+     }else{
+       //first time shoot reduce
+       date_time_predict.setSeconds(date_time_predict.getSeconds() + 5);
+       date_time_predict.setMilliseconds(reduce_ms_new);
+     }
+     /************************************************/
+     //Check is have time for reduce
+     var date_time_stop_reduce = new Date(local_shoot_last_date_time);
+     date_time_stop_reduce.setSeconds(date_time_stop_reduce.getSeconds() - par_button_shoot_distance);
+     var distance_ms = (date_time_stop_reduce - date_time_predict);
+     var is_can_shoot_reduce = (distance_ms >= 0);
+     /************************************************/
+
+     if(is_can_shoot_reduce){
+       //Is have time to reduce
+       last_reduce_date_time = new Date(date_time_predict);
+       /************************************************/
+       var date_time_shoot_predict_array = [];
+       date_time_shoot_predict_array.push(date_time_predict);
+       ShootProcess(date_time_shoot_predict_array);
+       ImacroWaitTime(1);
+       var betRanking = new BetRanking();
+       betRanking = MyShootMatching(my_username, date_time_predict);
+       var shoot_reduce_matching = betRanking.getBetRankingIsMatching();
+
+       str += "\n" + shoot_reduce_matching + ": " + reduce_ms_new;
+       str += "\n Predict: " + betRanking.getBetRankingPredictDateTime();
+       str += "\n Show: " + betRanking.getBetRankingDateTime();
+       str += "\n";
+
+
+       last_status = shoot_reduce_matching;
+
+       if(shoot_reduce_matching){
+         total_reduce_ms_complete_array.push(reduce_ms_new);
+       }else{
+         total_reduce_ms_failed_array.push(reduce_ms_new);
+       }
+     }else{
+       //alert("Stop: " + date_time_stop_reduce + "\n" + "Predict: " + date_time_predict + "\n" + local_shoot_last_date_time);
+       break;
+     }
+
+   }//End loop shoot reduce
+
+   var str_true = "";
+   var str_false = "";
+
+   for(var index = 0; index < total_reduce_ms_complete_array.length; index++){
+     str_true += total_reduce_ms_complete_array[index] + "\n";
+   }
+
+   for(var index = 0; index < total_reduce_ms_failed_array.length; index++){
+     str_false += total_reduce_ms_failed_array[index] + "\n";
+   }
+
+
+   str_true = "Complete: " + "\n" + str_true;
+   str_false = "Failed: " + "\n" + str_false;
+
+
+ }
+ function Check_SevTimeStop(par_sev_cmd_time_stop_object){
+
+   var cmd_time_stop_object = new SevCmdSetTimeStop();
+   cmd_time_stop_object = par_sev_cmd_time_stop_object;
+
+   var time_stop = false;
+   var date_time_currnet = new Date();
+
+   var is_enable = (cmd_time_stop_object.getCMDTimeStopGroupEnableID() == sev_fix_mode_enable);
+
+   if(is_enable){
+
+     var str_start_hh = cmd_time_stop_object.getCMDTimeStopStartHH();
+     var str_start_mn = cmd_time_stop_object.getCMDTimeStopStartMN();
+     var start_hh = parseInt(str_start_hh);
+     var start_mn = parseInt(str_start_mn);
+
+     var str_stop_hh = cmd_time_stop_object.getCMDTimeStopStopHH();
+     var str_stop_mn = cmd_time_stop_object.getCMDTimeStopStopMN();
+     var stop_hh = parseInt(str_stop_hh);
+     var stop_mn = parseInt(str_stop_mn);
+
+
+     if(start_hh > stop_hh){
+       var now_hh = date_time_currnet.getHours();
+       var now_mn = date_time_currnet.getMinutes();
+
+       if(now_hh > start_hh){
+         //stop
+         time_stop = true;
+       }else if(now_hh == start_hh){
+         if(now_mn >= start_mn){
+           //stop
+           time_stop = true;
+         }
+       }else if(now_hh < stop_hh){
+         //stop
+         time_stop = true;
+       }else if(now_hh == stop_hh){
+         if(now_mn <= stop_mn){
+           //stop
+           time_stop = true;
+         }
+       }
+     /**********************************/
+     }else{
+       var now_hh = date_time_currnet.getHours();
+       var now_mn = date_time_currnet.getMinutes();
+
+       var is_start = false;
+       var is_stop = false;
+
+       //start
+       if(now_hh > start_hh){
+         is_start = true;
+       }else if(now_hh == start_hh){
+         if(now_mn >= start_mn){
+           //stop
+           is_start = true;
+         }
+       }
+       //stop
+       if(now_hh < stop_hh){
+         is_stop = true;
+       }else if(now_hh == stop_hh){
+         if(now_mn <= stop_mn){
+           //stop
+           is_stop = true;
+         }
+       }
+
+       time_stop = (is_start && is_stop);
+
+     }
+
+   }
+
+   return time_stop;
+
+ }
+
+
+ function isInt(value) {
+   return !isNaN(value) &&
+          parseInt(Number(value)) == value &&
+          !isNaN(parseInt(value, 10));
+ }
